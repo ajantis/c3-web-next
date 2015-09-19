@@ -6,4 +6,4 @@
     > sbt c3web-server/run
 ```
 
-By default, server binds to http://localhost:9000 address.
+By default, server binds to http://localhost:9000 address
