@@ -1,4 +1,4 @@
-# The Next Version of C3 Web
+# The Next Version of C3 Web [![Build Status](https://travis-ci.org/C3Junior/c3-web-next.svg?branch=master)](https://travis-ci.org/C3Junior/c3-web-next)
 
 ## How To Run
 
