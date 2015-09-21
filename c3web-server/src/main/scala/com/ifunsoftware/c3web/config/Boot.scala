@@ -29,7 +29,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.ifunsoftware.c3web
+package com.ifunsoftware.c3web.config
 
 import akka.actor.ActorSystem
 import akka.event.Logging
@@ -52,7 +52,7 @@ object Boot extends App {
   val logger = Logging(system, getClass)
 
   val routes = {
-    logRequestResult("akka-http-microservice") {
+    logRequestResult("c3webserver") {
       apiRoute ~ staticRoute
     }
   }
