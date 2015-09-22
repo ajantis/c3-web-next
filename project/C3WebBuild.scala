@@ -74,7 +74,7 @@ object Dependencies {
   val akkaV = "2.3.12"
   val akkaStreamV = "1.0"
   val scalaTestV = "2.2.4"
-  val sprayV = "1.2.0"
+  val sprayV = "1.3.3"
   val c3webServer = Seq(
     Compile.akkaActor,
     Compile.akkaStream,
@@ -87,16 +87,17 @@ object Dependencies {
     Compile.sprayClient,
     Compile.sprayUtils,
     Compile.sprayCaching,
+    Compile.sprayCan,
     Compile.logger,
     Test.scalatest)
 
   object Compile {
-    val sprayServlet = "io.spray" % "spray-servlet" % sprayV
-    val sprayRouting = "io.spray" % "spray-routing" % sprayV
-    val sprayClient = "io.spray" % "spray-client" % sprayV
-    val sprayUtils = "io.spray" % "spray-util" % sprayV
-    val sprayCaching = "io.spray" % "spray-caching" % sprayV
-    val sprayCan = "io.spray" % "spray-can" % sprayV
+    val sprayServlet = "io.spray" %% "spray-servlet" % sprayV
+    val sprayRouting = "io.spray" %% "spray-routing" % sprayV
+    val sprayClient = "io.spray" %% "spray-client" % sprayV
+    val sprayUtils = "io.spray" %% "spray-util" % sprayV
+    val sprayCaching = "io.spray" %% "spray-caching" % sprayV
+    val sprayCan = "io.spray" %% "spray-can" % sprayV
     val akkaActor = "com.typesafe.akka" %% "akka-actor" % akkaV
     val logger = "com.typesafe.akka" %% "akka-slf4j" % akkaV
     val akkaStream = "com.typesafe.akka" %% "akka-stream-experimental" % akkaStreamV

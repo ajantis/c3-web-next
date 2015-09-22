@@ -31,48 +31,19 @@
 
 package com.ifunsoftware.c3web.config
 
-import akka.actor.ActorSystem
-import akka.event.Logging
-import akka.http.scaladsl.Http
-import akka.http.scaladsl.model.StatusCodes._
-import akka.http.scaladsl.server.Directives._
-import akka.http.scaladsl.server.Route
-import akka.stream.ActorMaterializer
+import akka.io.IO
 import com.typesafe.config.ConfigFactory
+import spray.can.Http
 
 /**
  * Main entry-point of the server application that instantiates all components.
  */
 object Boot extends App {
-  implicit val system = ActorSystem()
-  implicit val executor = system.dispatcher
-  implicit val materializer = ActorMaterializer()
 
   val config = ConfigFactory.load()
-  val logger = Logging(system, getClass)
+  val services = ActorSystemBean()
+  implicit val system = services.system
+  val service = services.apiRouterActor
 
-  val routes = {
-    logRequestResult("c3webserver") {
-      apiRoute ~ staticRoute
-    }
-  }
-
-  /*
-   * This route serves all API requests.
-   */
-  def apiRoute: Route = {
-    path("ping") {
-      complete(OK, "pong")
-    }
-  }
-
-  /*
-   * This route serves all static content (i.e. HTML, CSS, JS).
-   */
-  def staticRoute: Route =
-    path("") {
-      getFromResource("web/index.html")
-    } ~ getFromResourceDirectory("web")
-
-  Http().bindAndHandle(routes, config.getString("http.interface"), config.getInt("http.port"))
+  IO(Http) ! Http.Bind(service, interface = "localhost", port = 9000)
 }
