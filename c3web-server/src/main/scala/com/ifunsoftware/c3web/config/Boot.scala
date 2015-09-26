@@ -45,5 +45,5 @@ object Boot extends App {
   implicit val system = services.system
   val service = services.apiRouterActor
 
-  IO(Http) ! Http.Bind(service, interface = "localhost", port = 9000)
+  IO(Http) ! Http.Bind(service, interface = config.getString("http.interface"), port = config.getInt("http.port"))
 }

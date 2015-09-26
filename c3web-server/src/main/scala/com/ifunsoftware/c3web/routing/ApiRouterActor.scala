@@ -29,7 +29,11 @@ with ActorLogging {
       pathPrefix("api") {
         pathPrefix("ping") { ctx => pingRoute ! ctx }
       } ~
-        getFromResourceDirectory("web")
+        {
+          path("") {
+            getFromResource("web/index.html")
+          } ~ getFromResourceDirectory("web")
+        }
     }
   }
 }
