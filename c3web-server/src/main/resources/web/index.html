@@ -1,12 +1,12 @@
 <!doctype html>
 <!--[if lt IE 9]>
-<html class="no-js lt-ie9" lang="en" ng-app="c3web"> <![endif]-->
+<html class="no-js lt-ie9" lang="en" ng-app="app" ng-strict-di> <![endif]-->
 <!--[if gt IE 8]><!-->
-<html class="no-js" lang="en" ng-app="c3web"> <!--<![endif]-->
+<html class="no-js" lang="en" ng-app="app" ng-strict-di> <!--<![endif]-->
 <head>
     <!-- build:css styles/components.min.css -->
     <!-- bower:css -->
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css"/>
+    <link rel="stylesheet" href="bower_components/angular-material/angular-material.css"/>
     <!-- endbower -->
     <!-- endbuild -->
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
@@ -22,6 +22,17 @@
     <div class="site-wrapper-inner">
         <div class="cover-container">
             <div class="inner cover">
+                <p>
+                    This is a static part and below is dynamic
+                </p>
+                <a md-button
+                   href="#/group">
+                    Group
+                </a>
+                <a md-button
+                   href="#/default-link">
+                    Default route
+                </a>
                 <div class="inner" ng-view></div>
             </div>
         </div>
@@ -35,14 +46,17 @@
 <script src="bower_components/angular-animate/angular-animate.js"></script>
 <script src="bower_components/angular-route/angular-route.js"></script>
 <script src="bower_components/angular-resource/angular-resource.js"></script>
+<script src="bower_components/angular-aria/angular-aria.js"></script>
+<script src="bower_components/angular-material/angular-material.js"></script>
 <!-- endbower -->
 
 <!-- endbuild -->
 
 <!-- build:js scripts/app.min.js -->
-<script src="scripts/app.js"></script>
+<script src="scripts/app/setup.js"></script>
+<script src="scripts/app/app.js"></script>
+<script src="scripts/app/components/group/group-list.js"></script>
 <script src="scripts/controllers/controllers.js"></script>
-<script src="scripts/services/services.js"></script>
 <!-- endbuild -->
 
 </body>
