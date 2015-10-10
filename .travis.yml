@@ -4,3 +4,7 @@ cache:
   - .sbt
 script:
   - sbt compile
+branches:
+  -angular
+  -master
+  
