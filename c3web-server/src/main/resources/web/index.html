@@ -1,43 +1,67 @@
 <!doctype html>
 <!--[if lt IE 9]>
-<html class="no-js lt-ie9" lang="en" ng-app="app" ng-strict-di> <![endif]-->
+<html class="no-js lt-ie9" lang="en" ng-app="C3web" ng-strict-di> <![endif]-->
 <!--[if gt IE 8]><!-->
-<html class="no-js" lang="en" ng-app="app" ng-strict-di> <!--<![endif]-->
+<html class="no-js" lang="en" ng-app="C3web" ng-strict-di> <!--<![endif]-->
 <head>
     <!-- build:css styles/components.min.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/angular-material/angular-material.css"/>
     <!-- endbower -->
     <!-- endbuild -->
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/bower_components/components-font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <!-- build:css(.tmp) styles/main.min.css -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
 
 </head>
 
-<body ontouchstart>
+<body ng-cloak="" id="home">
+<nav class="navbar navbar-default navbar-fixed-top navbar-shrink">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand page-scroll" href="#page-top">C3 web</a>
+        </div>
 
-<div class="site-wrapper">
-    <div class="site-wrapper-inner">
-        <div class="cover-container">
-            <div class="inner cover">
-                <p>
-                    This is a static part and below is dynamic
-                </p>
-                <a md-button
-                   href="#/group">
-                    Group
-                </a>
-                <a md-button
-                   href="#/default-link">
-                    Default route
-                </a>
-                <div class="inner" ng-view></div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1" aria-expanded="false" style="height: 1px;">
+            <ul class="nav navbar-nav">
+                <li class="hidden"><a href="#page-top"></a></li>
+                <li class=""><a class="page-scroll" href="#/group">Группы</a></li>
+                <li class=""><a class="page-scroll" href="#/about">О проекте</a></li>
+            </ul>
+            <login-form label-name="dsdfds" user='$root.LocalUser' class="nav navbar-nav navbar-right"></login-form>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+</nav>
+<section id="portfolio" class="bg-light-gray">
+    <div class="container">
+        <div ng-view="" id="ng-view" class="slide-animation"></div>
+    </div>
+</section>
+
+<footer class="text-center">
+    <div class="footer-below">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    ©2015
+                    <p>Все права защищены.</p>
+                </div>
             </div>
         </div>
     </div>
-</div>
+</footer>
 
 <!-- build:js scripts/components.min.js -->
 <!-- bower:js -->
@@ -48,15 +72,20 @@
 <script src="bower_components/angular-resource/angular-resource.js"></script>
 <script src="bower_components/angular-aria/angular-aria.js"></script>
 <script src="bower_components/angular-material/angular-material.js"></script>
+<script src="bower_components/angular-toastr/dist/angular-toastr.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- endbower -->
 
 <!-- endbuild -->
 
 <!-- build:js scripts/app.min.js -->
-<script src="scripts/app/setup.js"></script>
-<script src="scripts/app/app.js"></script>
-<script src="scripts/app/components/group/group-list.js"></script>
+<script src="scripts/setup.js"></script>
+<script src="scripts/app.js"></script>
+<script src="scripts/components/group/group-list.js"></script>
+<script src="scripts/directives/login-form-directive.js"></script>
 <script src="scripts/controllers/controllers.js"></script>
+<script src="scripts/controllers/main.js"></script>
+<script src="scripts/controllers/data.js"></script>
 <!-- endbuild -->
 
 </body>

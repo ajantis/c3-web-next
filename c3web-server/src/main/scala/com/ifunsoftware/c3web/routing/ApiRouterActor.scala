@@ -4,7 +4,7 @@ package com.ifunsoftware.c3web.routing
  * Created by Alexander on 9/21/2015.
  */
 
-import akka.actor.{Actor, ActorLogging, ActorRef, Props}
+import akka.actor.{ Actor, ActorLogging, ActorRef, Props }
 import spray.routing.HttpService
 
 /**
@@ -19,8 +19,8 @@ object ApiRouterActor {
  * along to the matching spray routing actor (if there's a match)
  */
 class ApiRouterActor(pingRoute: ActorRef) extends Actor
-with HttpService
-with ActorLogging {
+  with HttpService
+  with ActorLogging {
 
   def actorRefFactory = context
 

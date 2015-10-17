@@ -1,7 +1,7 @@
 package com.ifunsoftware.c3web.config
 
 import akka.actor.ActorSystem
-import com.ifunsoftware.c3web.routing.{ApiRouterActor, PingRoute}
+import com.ifunsoftware.c3web.routing.{ ApiRouterActor, PingRoute }
 
 /**
  * Created by Alexander on 9/22/2015.
