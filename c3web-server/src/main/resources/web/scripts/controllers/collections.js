@@ -18,6 +18,20 @@
                 {caption: "Петр Капица 'Эксперимент. Теория. Практика.'"},
                 {caption: "Инженеринг алгоритмов"},
                 {caption: "Кризис доверия к эксперименту"}
-                ]
+                ];
+            $scope.engElements =[
+                {caption: "Experiment"},
+                {caption: "Computer experiment"},
+                {caption: "Research experiment"},
+                {caption: "Experiment factors and parameters"},
+                {caption: "Robust parameter design"},
+                {caption: "Results analysis and interpretation"},
+                {caption: "Algorithm engineering"},
+                {caption: "Algorithm engineering Karlsruhe"},
+                {caption: "Experiment documentation"},
+                {caption: "Experiment reproducibility"},
+                {caption: "Experiment capability Crisis"}
+
+            ]
         }]);
 })(angular)
