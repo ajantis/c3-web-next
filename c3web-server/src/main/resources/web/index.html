@@ -4,6 +4,10 @@
 <!--[if gt IE 8]><!-->
 <html class="no-js" lang="en" ng-app="C3web" ng-strict-di> <!--<![endif]-->
 <head>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Kaushan+Script" rel="stylesheet" type="text/css">
     <!-- build:css styles/components.min.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/angular-material/angular-material.css"/>
@@ -12,7 +16,7 @@
     <link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="/bower_components/components-font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <!-- build:css(.tmp) styles/main.min.css -->
-    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/agency.css">
     <!-- endbuild -->
 
 </head>
@@ -49,25 +53,20 @@
     </div>
     <!-- /.container-fluid -->
 </nav>
-<section id="portfolio" class="bg-light-gray">
-    <div class="container">
-        <div ng-view="" id="ng-view" class="slide-animation"></div>
-    </div>
-</section>
 
-<footer class="text-center">
-    <div class="footer-below">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    ©2015
-                    <p>Все права защищены.</p>
-                </div>
+<main>
+    <div ng-view="" id="ng-view" class="slide-animation"></div>
+</main>
+
+<footer class="text-center footer-below">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <span class="copyright">©2015 Все права защищены.</span>
             </div>
         </div>
     </div>
 </footer>
-
 <!-- build:js scripts/components.min.js -->
 <!-- bower:js -->
 <script src="bower_components/jquery/dist/jquery.js"></script>
