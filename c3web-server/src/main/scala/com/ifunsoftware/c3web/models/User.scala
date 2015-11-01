@@ -7,8 +7,9 @@ package com.ifunsoftware.c3web.models
 import spray.json._
 
 object UserEntryJson extends DefaultJsonProtocol {
-  implicit val userFormat= jsonFormat4(User.apply)
+  implicit val userFormat = jsonFormat3(User.apply)
 }
 
-case class User(id: Int, username: String, password: String, token: String){
+case class User(id: Int, username: String, password: String) {
+
 }

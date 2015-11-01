@@ -6,9 +6,9 @@ package com.ifunsoftware.c3web.models
 
 import spray.json._
 
-object AuthResponseEntryJson extends DefaultJsonProtocol {
-  implicit val userFormat= jsonFormat3(AuthResponse.apply)
+object AuthInfoEntryJson extends DefaultJsonProtocol {
+  implicit val authResponseFormat = jsonFormat4(AuthInfo.apply)
 }
 
-case class AuthResponse(id: Int, userId: Int, api_token: String)
+case class AuthInfo(id: Option[Int], username: String, password: String, api_token: Option[String])
 

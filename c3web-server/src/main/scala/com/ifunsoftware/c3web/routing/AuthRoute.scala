@@ -4,10 +4,10 @@ package com.ifunsoftware.c3web.routing
  * Created by Alexander on 9/22/2015.
  */
 
-import akka.actor.{ Actor, Props }
-import com.ifunsoftware.c3web.models.{AuthResponse, User}
+import akka.actor.{Actor, Props}
+import com.ifunsoftware.c3web.models.AuthInfo
+import com.ifunsoftware.c3web.models.AuthInfoEntryJson._
 import spray.http.StatusCodes
-import com.ifunsoftware.c3web.models.UserEntryJson._
 import spray.httpx.SprayJsonSupport
 import spray.routing.HttpService
 
@@ -19,7 +19,7 @@ object AuthRoute {
 }
 
 /**
- * Actor that handles requests that begin with "person"
+ * Actor that handles requests that begin with "authentication"
  */
 class AuthRoute() extends Actor with AuthRouteTrait {
   def actorRefFactory = context
@@ -42,15 +42,15 @@ trait AuthRouteTrait extends HttpService with SprayJsonSupport {
     } ~
       (post & pathEnd) {
         decompressRequest() {
-          entity(as[User]) { user =>
+          entity(as[AuthInfo]) { user =>
             if(user.username.equals("admin@admin.com") && user.password.equals("admin")){
-              val authResponse =  AuthResponse (1,1,"token")
-              val authenticatedUser = new User(user.id, user.username, user.password, "tokenadm")
-              complete(authenticatedUser)
+              val authResponse = AuthInfo(Some(1), user.username, "", Some("tokenadm"))
+              complete(StatusCodes.OK, authResponse)
             }
             else if(user.username.equals("user@user.com") && user.password.equals("user")){
-              val authenticatedUser = new User(user.id, user.username, user.password, "tokenuser")
-              complete(user)}
+              val authResponse = new AuthInfo(Some(2), user.username, "", Some("tokenuser"))
+              complete(StatusCodes.OK, authResponse)
+            }
             else
               complete(StatusCodes.NotFound)
           }
