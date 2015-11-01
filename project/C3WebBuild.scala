@@ -81,6 +81,7 @@ object Dependencies {
     Compile.akkaHttpCore,
     Compile.akkaHttp,
     Compile.sprayJson,
+    Compile.sprayJSONNE,
     Compile.akkaHttpTestkit,
     Compile.sprayServlet,
     Compile.sprayRouting,
@@ -98,6 +99,7 @@ object Dependencies {
     val sprayUtils = "io.spray" %% "spray-util" % sprayV
     val sprayCaching = "io.spray" %% "spray-caching" % sprayV
     val sprayCan = "io.spray" %% "spray-can" % sprayV
+    val sprayJSONNE = "io.spray" %%  "spray-json"  % "1.2.5"
     val akkaActor = "com.typesafe.akka" %% "akka-actor" % akkaV
     val logger = "com.typesafe.akka" %% "akka-slf4j" % akkaV
     val akkaStream = "com.typesafe.akka" %% "akka-stream-experimental" % akkaStreamV

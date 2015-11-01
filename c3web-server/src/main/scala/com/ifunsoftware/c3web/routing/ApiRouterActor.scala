@@ -11,14 +11,14 @@ import spray.routing.HttpService
  * Factory method for Props configuration files for actors
  */
 object ApiRouterActor {
-  def props(pingRoute: ActorRef): Props = Props(new ApiRouterActor(pingRoute))
+  def props(authRoute: ActorRef): Props = Props(new ApiRouterActor(authRoute))
 }
 
 /**
  * Routes the incoming request.  If the route begins with "api" the request is passed
  * along to the matching spray routing actor (if there's a match)
  */
-class ApiRouterActor(pingRoute: ActorRef) extends Actor
+class ApiRouterActor(authRoute: ActorRef) extends Actor
   with HttpService
   with ActorLogging {
 
@@ -27,7 +27,7 @@ class ApiRouterActor(pingRoute: ActorRef) extends Actor
   def receive = runRoute {
     compressResponseIfRequested() {
       pathPrefix("api") {
-        pathPrefix("ping") { ctx => pingRoute ! ctx }
+        pathPrefix("auth") { ctx => authRoute ! ctx }
       } ~
         {
           path("") {
