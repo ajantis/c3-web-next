@@ -1,0 +1,40 @@
+<ul>
+    <li class="dropdown" ng-if="IsLogin">
+        <a data-toggle="dropdown" class="dropdown-toggle" >{{user.name}}  <b class="caret"></b></a>
+        <ul style="padding: 15px;min-width: 250px;" class="dropdown-menu">
+            <li><a href="/#">Item 1</a></li>
+            <li><a ng-click="logout();">Logout</a></li>
+        </ul>
+    </li>
+
+    <li class="dropdown not_logged_in" ng-if="!IsLogin">
+        <a data-toggle="dropdown" class="dropdown-toggle" href="/user_mgt/login">Войти <b class="caret"></b></a>
+        <ul style="padding: 15px;min-width: 250px;" class="dropdown-menu">
+            <li>
+                <div class="row">
+                    <div class="col-md-12">
+                        <form id="login-nav" name="loginForm" role="form" class="form">
+                            <fieldset>
+                                <div class="form-group">
+                                    <label for="username" class="sr-only">Email адрес</label>
+                                    <input required="" placeholder="Email адрес" id="username" class="form-control username" type="text" name="email" ng-model="login.email" required focus>
+                                </div>
+                                <div class="form-group">
+                                    <label for="password" class="sr-only">Пароль</label>
+                                    <input required="" placeholder="Пароль" id="password" class="password form-control" type="password" name="password" ng-model="login.password" required>
+                                </div>
+                                <div class="form-group">
+                                    <button class="btn btn-success btn-block" type="submit" ng-click="doLogin(login)" data-ng-disabled="loginForm.$invalid">Войти</button>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </li>
+            <li class="divider"></li>
+            <li>
+                <a placeholder="Регистрация" class="btn btn-primary" href="#/signup">Регистрация</a>
+            </li>
+        </ul>
+    </li>
+</ul>
