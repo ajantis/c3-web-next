@@ -7,6 +7,8 @@ package com.ifunsoftware.c3web.routing
 import akka.actor.{Actor, Props}
 import com.ifunsoftware.c3web.models.AuthInfo
 import com.ifunsoftware.c3web.models.AuthInfoEntryJson._
+import com.ifunsoftware.c3web.service.AuthenticationService
+import org.slf4j.LoggerFactory
 import spray.http.StatusCodes
 import spray.httpx.SprayJsonSupport
 import spray.routing.HttpService
@@ -19,7 +21,7 @@ object AuthRoute {
 }
 
 /**
- * Actor that handles requests that begin with "authentication"
+ * Actor that handles requests that begin with "auth" (authentication)
  */
 class AuthRoute() extends Actor with AuthRouteTrait {
   def actorRefFactory = context
@@ -32,29 +34,29 @@ class AuthRoute() extends Actor with AuthRouteTrait {
  */
 trait AuthRouteTrait extends HttpService with SprayJsonSupport {
 
+  val log = LoggerFactory.getLogger(classOf[AuthRouteTrait])
   val authRoute = {
     get {
       pathEnd {
         complete {
+          log.debug("Hitting to GET for auth path")
           StatusCodes.NotAcceptable
         }
       }
     } ~
       (post & pathEnd) {
+        log.debug("Hitting to POST for auth path")
         decompressRequest() {
-          entity(as[AuthInfo]) { user =>
-            if(user.username.equals("admin@admin.com") && user.password.equals("admin")){
-              val authResponse = AuthInfo(Some(1), user.username, "", Some("tokenadm"))
-              complete(StatusCodes.OK, authResponse)
+          entity(as[AuthInfo]) { authInfo =>
+            log.debug(s"Trying to authenticate user:${authInfo.username}")
+            val authinfoupdated = authService.authenticateUser(authInfo)
+            authinfoupdated match {
+              case Some(authinfoupdated) => complete(StatusCodes.OK, authinfoupdated)
+              case None => complete(StatusCodes.NotFound)
             }
-            else if(user.username.equals("user@user.com") && user.password.equals("user")){
-              val authResponse = new AuthInfo(Some(2), user.username, "", Some("tokenuser"))
-              complete(StatusCodes.OK, authResponse)
-            }
-            else
-              complete(StatusCodes.NotFound)
           }
         }
       }
   }
+  private val authService = AuthenticationService
 }

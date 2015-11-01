@@ -10,6 +10,5 @@ object UserEntryJson extends DefaultJsonProtocol {
   implicit val userFormat = jsonFormat3(User.apply)
 }
 
-case class User(id: Int, username: String, password: String) {
-
+case class User(id: Option[Int], username: String, password: String) {
 }

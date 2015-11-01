@@ -1,7 +1,7 @@
 package com.ifunsoftware.c3web.config
 
 import akka.actor.ActorSystem
-import com.ifunsoftware.c3web.routing.{AuthRoute, ApiRouterActor}
+import com.ifunsoftware.c3web.routing.{AccountingRoute, ApiRouterActor, AuthRoute}
 
 /**
  * Created by Alexander on 9/22/2015.
@@ -20,7 +20,8 @@ object ActorSystemBean {
  */
 class ActorSystemBean {
 
-  lazy val personRoute = system.actorOf(AuthRoute.props, "ping-route")
-  lazy val apiRouterActor = system.actorOf(ApiRouterActor.props(personRoute), "api-router")
+  lazy val authRoute = system.actorOf(AuthRoute.props, "auth-route")
+  lazy val accountingRoute = system.actorOf(AccountingRoute.props, "acc-route")
+  lazy val apiRouterActor = system.actorOf(ApiRouterActor.props(authRoute, accountingRoute), "api-router")
   implicit val system = ActorSystem("c3web-server")
 }
