@@ -1,24 +1,100 @@
 <!doctype html>
-<html ng-app="appname">
+<!--[if lt IE 9]>
+<html class="no-js lt-ie9" lang="en" ng-app="C3web" ng-strict-di> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="en" ng-app="C3web" ng-strict-di> <!--<![endif]-->
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Kaushan+Script" rel="stylesheet" type="text/css">
+    <!-- build:css styles/components.min.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/angular-material/angular-material.css"/>
+    <!-- endbower -->
+    <!-- endbuild -->
+    <link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/bower_components/components-font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- build:css(.tmp) styles/main.min.css -->
+    <link rel="stylesheet" href="styles/agency.css">
+    <!-- endbuild -->
 
-    <title>Hello</title>
-
-    <!--<link rel="stylesheet" href="css/bootstrap.css">-->
-    <!--<link rel="stylesheet" href="css/app.css">-->
-    <!--<link rel="icon" type="image/png" href="img/favicon.ico">-->
-
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.20/angular.min.js"></script>
-    <script src="js/app.js"></script>
 </head>
 
-<body>
+<body ng-cloak="" id="home">
+<nav class="navbar navbar-default navbar-fixed-top navbar-shrink">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand page-scroll" href="#page-top">C3 web</a>
+        </div>
 
-<div ng-controller="appCtrl">
-    <p>{{greeting.text}}, world </p>
-</div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1" aria-expanded="false" style="height: 1px;">
+            <ul class="nav navbar-nav">
+                <li class="hidden"><a href="#page-top"></a></li>
+                <li class=""><a class="page-scroll" href="#/group">Группы</a></li>
+                <li class=""><a class="page-scroll" href="#/about">О проекте</a></li>
+                <li class=""><a class="page-scroll" href="#/k_base">коллекции</a></li>
+                <li class=""><a class="page-scroll" href="#/r_suite">R статистика</a></li>
+                <li class=""><a class="page-scroll" href="#/experiments">эксперименты</a></li>
+
+
+            </ul>
+            <login-form label-name="dsdfds" user='$root.LocalUser' class="nav navbar-nav navbar-right"></login-form>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+</nav>
+
+<main>
+    <div ng-view="" id="ng-view" class="slide-animation"></div>
+</main>
+
+<footer class="text-center footer-below">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <span class="copyright">©2015 Все права защищены.</span>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- build:js scripts/components.min.js -->
+<!-- bower:js -->
+<script src="bower_components/jquery/dist/jquery.js"></script>
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/angular-animate/angular-animate.js"></script>
+<script src="bower_components/angular-route/angular-route.js"></script>
+<script src="bower_components/angular-resource/angular-resource.js"></script>
+<script src="bower_components/angular-aria/angular-aria.js"></script>
+<script src="bower_components/angular-material/angular-material.js"></script>
+<script src="bower_components/angular-toastr/dist/angular-toastr.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- endbower -->
+
+<!-- endbuild -->
+
+<!-- build:js scripts/app.min.js -->
+<script src="scripts/setup.js"></script>
+<script src="scripts/app.js"></script>
+<script src="scripts/components/group/group-list.js"></script>
+<script src="scripts/directives/login-form-directive.js"></script>
+<script src="scripts/controllers/controllers.js"></script>
+<script src="scripts/controllers/collections.js"></script>
+<script src="scripts/controllers/main.js"></script>
+<script src="scripts/controllers/data.js"></script>
+<script src="scripts/services/json-service.js"></script>
+
+<!-- endbuild -->
 
 </body>
+
 </html>

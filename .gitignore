@@ -34,3 +34,5 @@ atlassian-ide-plugin.xml
 
 .java-version
 
+#bower components
+/c3web-server/src/main/resources/web/bower_components

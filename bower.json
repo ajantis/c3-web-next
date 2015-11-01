@@ -1,0 +1,37 @@
+{
+  "name": "c3web-server",
+  "version": "0.1.0",
+  "description": "C3 WEB project",
+  "keywords": [
+    "angular",
+    "spray",
+    "c3",
+    "c3web"
+  ],
+  "homepage": "https://github.com/C3Junior/c3-web-next.git",
+  "bugs": "https://github.com/C3Junior/c3-web-next.git/issues",
+  "author": {
+    "name": "C3Junior",
+    "email": "",
+    "url": "https://github.com/C3Junior/c3-web-next.git"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/C3Junior/c3-web-next.git"
+  },
+  "licenses": [
+    {
+      "type": "GNU"
+    }
+  ],
+  "dependencies": {
+    "bootstrap": "3.2.0",
+    "angular-animate": "~1.4",
+    "angular-route": "~1.4",
+    "angular-resource": "~1.4",
+    "angular-toastr": "master",
+    "angular": "~1.4",
+    "angular-material": "master",
+    "components-font-awesome": "~4.4"
+  }
+}
