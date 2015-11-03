@@ -7,7 +7,8 @@ package com.ifunsoftware.c3web.models
 import spray.json._
 
 object GroupEntryJson extends DefaultJsonProtocol {
-  implicit val authResponseFormat = jsonFormat2(Group.apply)
+  implicit val groupResponseFormat = jsonFormat4(Group.apply)
 }
 
-case class Group(id: Option[Int], groupname: String)
+case class Group(id: Option[Int], groupname: Option[String], uid: Option[String], description: Option[String]) {
+}

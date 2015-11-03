@@ -5,6 +5,7 @@ package com.ifunsoftware.c3web.routing
  */
 
 import akka.actor.{Actor, Props}
+import com.ifunsoftware.c3web.service.GroupService
 import org.slf4j.LoggerFactory
 import spray.http.StatusCodes
 import spray.httpx.SprayJsonSupport
@@ -37,9 +38,14 @@ trait GroupsRouteTrait extends HttpService with SprayJsonSupport {
       pathEnd {
         complete {
           log.debug("Hitting to GET for GROUPS path")
-          StatusCodes.OK
+          val groups = groupService.getGroups
+          groups match {
+            case head :: tail => groups
+            case Nil => StatusCodes.NoContent
+          }
         }
       }
     }
   }
+  private val groupService = GroupService
 }
