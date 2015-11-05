@@ -24,6 +24,11 @@ object C3WebBuild extends Build {
     .settings(c3webAssemblySettings: _*)
     .settings(Revolver.settings: _*)
     .settings(libraryDependencies ++= Dependencies.c3webServer)
+    .dependsOn(c3web_domain)
+
+  lazy val c3web_domain = Project("c3web-domain", file("c3web-domain"))
+    .settings(defaultSettings: _*)
+    .settings(libraryDependencies ++= Dependencies.c3webDomain)
 
   override lazy val settings = {
     super.settings ++
@@ -98,4 +103,6 @@ object Dependencies {
     Compile.sprayJson,
     Compile.akkaHttpTestkit,
     Test.scalatest)
+
+  val c3webDomain = Seq(Test.scalatest)
 }
