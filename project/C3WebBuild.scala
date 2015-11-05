@@ -91,6 +91,7 @@ object Dependencies {
     val sprayJson         = "io.spray"          %% "spray-json"                           % sprayJsonV
     val sprayJsonSupport  = "com.typesafe.akka" %% "akka-http-spray-json-experimental"    % akkaStreamV
     val akkaHttpTestkit   = "com.typesafe.akka" %% "akka-http-testkit-experimental"       % akkaStreamV
+    val akkaHttpSession   = "com.softwaremill"  %% "akka-http-session"                    % "0.1.4"
   }
 
   object Test {
@@ -105,6 +106,7 @@ object Dependencies {
     Compile.sprayJson,
     Compile.sprayJsonSupport,
     Compile.akkaHttpTestkit,
+    Compile.akkaHttpSession,
     Test.scalatest)
 
   val c3webDomain = Seq(Compile.sprayJson, Test.scalatest)

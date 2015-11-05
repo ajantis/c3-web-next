@@ -42,6 +42,10 @@ import akka.http.scaladsl.server.Route
 import akka.http.scaladsl.model.StatusCodes._
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport._
+import com.softwaremill.session.{ SessionManager, SessionConfig }
+import com.softwaremill.session._
+import com.softwaremill.session.SessionDirectives._
+
 import spray.json._
 import DefaultJsonProtocol._
 import com.ifunsoftware.c3web.domain.User
@@ -60,10 +64,15 @@ object Boot extends App {
   val logger = Logging(system, getClass)
 
   val routes = {
-    logRequestResult("akka-http-microservice") {
+    logRequestResult("c3web-service") {
       apiRoute ~ staticRoute
     }
   }
+
+  val users = List(User(UUID.randomUUID(), "user1@test.com"), User(UUID.randomUUID(), "user2@test.com"), User(UUID.randomUUID(), "user3@test.com"))
+
+  val sessionConfig = SessionConfig.default("secret_password") // TODO move to settings
+  implicit val sessionManager = new SessionManager[Long](sessionConfig)
 
   /*
    * This route serves all API requests.
@@ -72,10 +81,28 @@ object Boot extends App {
     path("ping") {
       complete(OK -> "pong")
     } ~
-      path("users") {
-        get {
-          complete(OK -> List(User(UUID.randomUUID(), "user1@test.com"), User(UUID.randomUUID(), "user2@test.com"), User(UUID.randomUUID(), "user3@test.com")))
-        }
+      pathPrefix("api") {
+        path("login") {
+          post {
+            entity(as[String]) { body =>
+              setSession(812832L) {
+                complete("OK")
+              }
+            }
+          }
+        } ~
+          requiredSession() { session =>
+            path("users") {
+              get {
+                complete(OK -> users)
+              }
+            } ~
+              path("users" / JavaUUID) { userId =>
+                get {
+                  users.find(_.id == userId).map(user => complete(OK -> user)).getOrElse(complete(NotFound))
+                }
+              }
+          }
       }
   }
 
