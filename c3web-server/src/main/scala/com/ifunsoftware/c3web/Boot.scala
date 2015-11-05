@@ -33,7 +33,7 @@ package com.ifunsoftware.c3web
 
 import akka.actor.ActorSystem
 import akka.event.Logging
-import akka.stream.ActorFlowMaterializer
+import akka.stream.ActorMaterializer
 
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.server.Route
@@ -48,7 +48,7 @@ import com.typesafe.config.ConfigFactory
 object Boot extends App {
   implicit val system = ActorSystem()
   implicit val executor = system.dispatcher
-  implicit val materializer = ActorFlowMaterializer()
+  implicit val materializer = ActorMaterializer()
 
   val config = ConfigFactory.load()
   val logger = Logging(system, getClass)

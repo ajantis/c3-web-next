@@ -73,7 +73,7 @@ object ProjectSettings {
 }
 
 object Dependencies {
-  val akkaV       = "2.3.12"
+  val akkaV       = "2.4.0"
   val akkaStreamV = "1.0"
   val scalaTestV  = "2.2.4"
 
@@ -81,9 +81,9 @@ object Dependencies {
     val akkaActor       = "com.typesafe.akka" %% "akka-actor"                           % akkaV
     val akkaStream      = "com.typesafe.akka" %% "akka-stream-experimental"             % akkaStreamV
     val akkaHttpCore    = "com.typesafe.akka" %% "akka-http-core-experimental"          % akkaStreamV
-    val akkaHttp        = "com.typesafe.akka" %% "akka-http-scala-experimental"         % akkaStreamV
+    val akkaHttp        = "com.typesafe.akka" %% "akka-http-experimental"               % akkaStreamV
     val sprayJson       = "com.typesafe.akka" %% "akka-http-spray-json-experimental"    % akkaStreamV
-    val akkaHttpTestkit = "com.typesafe.akka" %% "akka-http-testkit-scala-experimental" % akkaStreamV
+    val akkaHttpTestkit = "com.typesafe.akka" %% "akka-http-testkit-experimental"       % akkaStreamV
   }
 
   object Test {
