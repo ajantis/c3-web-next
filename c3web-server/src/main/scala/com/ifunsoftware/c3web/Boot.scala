@@ -31,6 +31,8 @@
 
 package com.ifunsoftware.c3web
 
+import java.util.UUID
+
 import akka.actor.ActorSystem
 import akka.event.Logging
 import akka.stream.ActorMaterializer
@@ -39,6 +41,10 @@ import akka.http.scaladsl.Http
 import akka.http.scaladsl.server.Route
 import akka.http.scaladsl.model.StatusCodes._
 import akka.http.scaladsl.server.Directives._
+import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport._
+import spray.json._
+import DefaultJsonProtocol._
+import com.ifunsoftware.c3web.domain.User
 
 import com.typesafe.config.ConfigFactory
 
@@ -64,8 +70,13 @@ object Boot extends App {
    */
   def apiRoute: Route = {
     path("ping") {
-      complete(OK, "pong")
-    }
+      complete(OK -> "pong")
+    } ~
+      path("users") {
+        get {
+          complete(OK -> List(User(UUID.randomUUID(), "user1@test.com"), User(UUID.randomUUID(), "user2@test.com"), User(UUID.randomUUID(), "user3@test.com")))
+        }
+      }
   }
 
   /*
