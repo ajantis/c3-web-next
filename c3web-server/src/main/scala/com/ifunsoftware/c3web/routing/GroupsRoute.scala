@@ -9,6 +9,7 @@ import com.ifunsoftware.c3web.service.GroupService
 import org.slf4j.LoggerFactory
 import spray.http.StatusCodes
 import spray.httpx.SprayJsonSupport
+import com.ifunsoftware.c3web.models.GroupEntryJson._
 import spray.routing.HttpService
 
 /**
