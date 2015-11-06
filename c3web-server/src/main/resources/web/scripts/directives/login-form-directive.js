@@ -2,16 +2,13 @@
     'use strict';
     angular
 .module('C3web.directives')
-.controller('loginFormController', ['$scope', '$rootScope', 'Data', function ($scope, $rootScope, Data) {
+.controller('loginFormController', ['$scope', '$rootScope', 'LoginService', 'Data', function ($scope, $rootScope, LoginService, Data) {
 
     $scope.IsLogin = false;
     $scope.login = {};
     $scope.signup = {};
-    $scope.doLogin = function (customer) {
-        Data.post('login', {
-            customer: customer
-        }).then(function (results) {
-            Data.toast(results);
+    $scope.doLogin = function (user) {
+        LoginService.getUser().then(function (results) {
             if (results.status == "success") {
                  $scope.IsLogin = true;
                  $scope.user = {
@@ -42,8 +39,9 @@
 			   $scope.IsLogin= false;
 			}
 		});
+
 	};
-$scope.load();
+//$scope.load();
 }
     ])
     .directive('loginForm', function () {

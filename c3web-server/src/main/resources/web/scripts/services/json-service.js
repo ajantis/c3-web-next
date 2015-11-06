@@ -6,10 +6,11 @@
     var serviceBase = 'api/';
 
     var setOptionToastr = function() {
-        toastr.options.timeOut = 1000;
+      /* toastr.options.timeOut = 1000;
         toastr.options.extendedTimeOut = 100; //time out after visit
         toastr.options.positionClass = "toast-top-right";
         toastr.options.closeButton = true;
+        */
     };
     var getPromise = function (url, type, jsonData, onValidationError, jsonAction, noAlert) {
 
@@ -40,7 +41,7 @@
                 $location.reload(true);
             } else {
                 setOptionToastr();
-                toastr.error("error_message" + status, "error_title");
+                toastr.error("error_message" + status, "error_title", 'trustedHtml');
             }
         };
 
