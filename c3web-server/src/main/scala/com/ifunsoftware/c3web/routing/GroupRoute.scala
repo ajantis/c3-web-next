@@ -40,12 +40,12 @@ trait GroupRouteTrait extends HttpService with SprayJsonSupport {
     get {
       pathEnd {
         complete(StatusCodes.NoContent)
-      }
-      path(LongNumber) { groupId =>
+      } ~
+        path(IntNumber) { groupId =>
         log.debug(s"Hitting Get GROUP by Id:${groupId}")
         val group = groupService.getGroupById(groupId)
         complete(group)
-      }
+        } ~
       path(JavaUUID) { groupUID =>
         log.debug(s"Hitting Get GROUP by Id:${groupUID}")
         val group = groupService.getGroupByUUID(groupUID.toString)

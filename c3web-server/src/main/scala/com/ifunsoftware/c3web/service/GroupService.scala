@@ -44,7 +44,7 @@ object GroupService {
     }
   }
 
-  def getGroupById(groupId: Long): Option[Group] = {
+  def getGroupById(groupId: Int): Option[Group] = {
     groupMock find (_.id == Some(groupId))
   }
 
