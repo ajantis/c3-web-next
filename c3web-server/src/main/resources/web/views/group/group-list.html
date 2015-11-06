@@ -1,17 +1,70 @@
 <section id="services">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-12 text-center">
-                <h2 class="section-heading">Work groups</h2>
+        <div class="col-lg-9 col-md-9">
+            <div class="input-group">
+                <input type="text" class="form-control input-rounded" name="default">
+                <span class="input-group-btn">
+                    <button class="btn btn-success disabled" type="button">Search</button>
+                </span>
+            </div>
+
+            <div class="panel panel-default plain toggle">
+                <!-- Start .panel -->
+                <div class="panel-heading">
+                    <h4 class="panel-title"><i class="fa fa-comments"></i>Groups</h4>
+                    <div class="panel-controls panel-controls-right">
+                        <a href="#" class="panel-refresh"><i class="fa fa-circle-o"></i></a>
+                        <a href="#" class="toggle panel-minimize"><i class="fa fa-angle-up"></i></a>
+                        <a href="#" class="panel-close"><i class="fa fa-times"></i></a>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <ul class="list-group recent-comments">
+                        <li class="list-group-item clearfix comment-success" ng-repeat="group in groups">
+                            <div class="avatar pull-left mr15">
+                                <i class="fa fa-comments fa-4x"></i>
+                            </div>
+                            <h4 class="list-group-item-heading">{{group.groupname}}</h4>
+                            <p class="list-group-item-text">{{group.description}}</p>
+                            <span class="date text-muted small pull-left">Creater {{group.uid}}</span>
+                            <a href="#/group/{{group.id}}" class="see-more small pull-right">
+                                <span class="pull-right">
+                                    <i class="fa fa-2x fa-arrow-circle-right"></i>
+                                </span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
             </div>
         </div>
-        <div class="row text-center">
-            <h3>{{model.greeting}}</h3>
-            <ul>
-                <li ng-repeat="item in model.list">
-                    {{item}}
-                </li>
-            </ul>
+        <div class="col-lg-3 col-md-3">
+            <div class="panel panel-default toggle">
+                <div class="panel-heading">
+                    <h4 class="panel-title">Tupe sorting</h4>
+                </div>
+                <div class="panel-body">
+                        <div class="radio-custom">
+                            <input type="radio" name="radio" value="option1" id="radio1">
+                            <label for="radio1">Unchecked</label>
+                        </div>
+                        <div class="radio-custom">
+                            <input type="radio" name="radio" value="option2" checked="checked" id="radio2">
+                            <label for="radio2">Checked</label>
+                        </div>
+                        <div class="radio-custom">
+                            <input type="radio" name="radio" value="option3" disabled="disabled" id="radio3">
+                            <label for="radio3">Disabled</label>
+                        </div>
+                    <ul class="list-group">
+                        <li class="list-group-item">Cras justo odio</li>
+                        <li class="list-group-item">Dapibus ac facilisis in</li>
+                        <li class="list-group-item">Morbi leo risus</li>
+                        <li class="list-group-item">Porta ac consectetur ac</li>
+                        <li class="list-group-item">Vestibulum at eros</li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
 </section>

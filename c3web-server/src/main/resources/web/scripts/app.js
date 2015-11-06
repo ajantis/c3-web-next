@@ -10,6 +10,10 @@ angular.module('C3web')
             templateUrl: 'views/group/group-list.html',
             controller: 'group.groupListController'
         })
+        .when('/group/:id', {
+            templateUrl: 'views/group/group.html',
+            controller: 'group.groupController'
+        })
         .when('/r_suite',{
                       title: 'R_suite',
                       templateUrl: 'views/r_suite.html'

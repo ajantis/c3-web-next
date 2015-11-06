@@ -7,12 +7,12 @@
         var auth = function (user) {
             return jsonService.post('auth', user);
         };
-        var getUser = function () {
-            return jsonService.get('users');
+        var list = function () {
+            return jsonService.get('user');
         };
         return {
             auth: auth,
-            getUser:getUser
+            list:list
         };
     }]);
 })();

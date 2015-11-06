@@ -9,10 +9,8 @@
         };
 
         var get = function (groupID) {
-            return jsonService.get('groups/' + groupID);
+            return jsonService.get('group/' + groupID);
         };
-
-
 
         return {
             list: list,
