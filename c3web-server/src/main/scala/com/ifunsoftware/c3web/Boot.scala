@@ -43,7 +43,6 @@ import akka.http.scaladsl.model.StatusCodes._
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport._
 import com.softwaremill.session.{ SessionManager, SessionConfig }
-import com.softwaremill.session._
 import com.softwaremill.session.SessionDirectives._
 
 import spray.json._
