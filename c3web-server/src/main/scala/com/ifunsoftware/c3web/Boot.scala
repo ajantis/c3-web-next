@@ -50,8 +50,6 @@ import spray.json._
 import DefaultJsonProtocol._
 import com.ifunsoftware.c3web.domain.User
 
-import com.typesafe.config.ConfigFactory
-
 /**
  * Main entry-point of the server application that instantiates all components.
  */
@@ -60,8 +58,10 @@ object Boot extends App {
   implicit val executor = system.dispatcher
   implicit val materializer = ActorMaterializer()
 
-  val config = ConfigFactory.load()
   val logger = Logging(system, getClass)
+
+  // Eagerly load settings to fail-fast if something is missing
+  val httpSettings = Settings(system).Http
 
   val routes = {
     logRequestResult("c3web-service") {
@@ -114,5 +114,5 @@ object Boot extends App {
       getFromResource("web/index.html")
     } ~ getFromResourceDirectory("web")
 
-  Http().bindAndHandle(routes, config.getString("http.interface"), config.getInt("http.port"))
+  Http().bindAndHandle(routes, httpSettings.Interface, httpSettings.Port)
 }
