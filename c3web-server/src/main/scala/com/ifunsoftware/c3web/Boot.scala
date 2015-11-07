@@ -35,15 +35,23 @@ import java.util.UUID
 
 import akka.actor.ActorSystem
 import akka.event.Logging
+import akka.http.scaladsl.model.StatusCodes
 import akka.stream.ActorMaterializer
 
 import akka.http.scaladsl.Http
+import akka.pattern.ask
 import akka.http.scaladsl.server.Route
 import akka.http.scaladsl.model.StatusCodes._
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport._
-import com.softwaremill.session.{ SessionManager, SessionConfig }
+import akka.util.Timeout
+import com.ifunsoftware.c3web.auth.AuthenticationProvider.Authenticate
+import com.ifunsoftware.c3web.auth.{ AuthenticationProvider, UserPassCredentials }
+import com.ifunsoftware.c3web.users.UsersStore
+import com.ifunsoftware.c3web.users.UsersStore.FetchUserById
+import com.softwaremill.session.{ SessionSerializer, SessionManager, SessionConfig }
 import com.softwaremill.session.SessionDirectives._
+import com.typesafe.config.ConfigException
 
 import spray.json._
 import DefaultJsonProtocol._
@@ -59,8 +67,24 @@ object Boot extends App {
 
   val logger = Logging(system, getClass)
 
-  // Eagerly load settings to fail-fast if something is missing
-  val httpSettings = Settings(system).Http
+  private val settings =
+    try {
+      // Eagerly load settings to fail-fast if something is missing
+      Settings(system)
+    } catch {
+      case e: ConfigException =>
+        println("[ERROR] Configuration is invalid: ")
+        println()
+        println(s"Details: ${e.getMessage}")
+        println()
+
+        System.exit(-1)
+        null
+    }
+
+  private val httpSettings = settings.Http
+
+  implicit val futureTimeout = Timeout(settings.Timeouts.DefaultFutureTimeout)
 
   val routes = {
     logRequestResult("c3web-service") {
@@ -68,10 +92,16 @@ object Boot extends App {
     }
   }
 
-  val users = List(User(UUID.randomUUID(), "user1@test.com"), User(UUID.randomUUID(), "user2@test.com"), User(UUID.randomUUID(), "user3@test.com"))
+  implicit def stringSessionSerializer = new SessionSerializer[UUID] {
+    override def serialize(t: UUID): String = t.toString
+    override def deserialize(s: String): UUID = UUID.fromString(s)
+  }
 
   val sessionConfig = SessionConfig.default("secret_password") // TODO move to settings
-  implicit val sessionManager = new SessionManager[Long](sessionConfig)
+  implicit val sessionManager = new SessionManager[UUID](sessionConfig)
+
+  val usersStore = system.actorOf(UsersStore.props())
+  val authProvider = system.actorOf(AuthenticationProvider.props(usersStore))
 
   /*
    * This route serves all API requests.
@@ -80,28 +110,34 @@ object Boot extends App {
     path("ping") {
       complete(OK -> "pong")
     } ~
+      path("login") {
+        post {
+          entity(as[UserPassCredentials]) { credentials =>
+
+            onSuccess((authProvider ? Authenticate(credentials)).mapTo[Option[User]]) {
+              case Some(user) =>
+                setSession(UUID.randomUUID()) {
+                  println("AAA good credentials")
+                  complete("OK")
+                }
+
+              case _ =>
+                println("AAA bad credentials")
+                complete(StatusCodes.Unauthorized, "Bad credentials.")
+            }
+          }
+        }
+      } ~
       pathPrefix("api") {
-        path("login") {
-          post {
-            entity(as[String]) { body =>
-              setSession(812832L) {
-                complete("OK")
+        requiredSession[UUID]() { session =>
+          path("users" / JavaUUID) { userId =>
+            get {
+              onSuccess((usersStore ? FetchUserById(userId)).mapTo[Option[User]]) { userOption =>
+                userOption.map(user => complete(OK -> user)).getOrElse(complete(NotFound))
               }
             }
           }
-        } ~
-          requiredSession() { session =>
-            path("users") {
-              get {
-                complete(OK -> users)
-              }
-            } ~
-              path("users" / JavaUUID) { userId =>
-                get {
-                  users.find(_.id == userId).map(user => complete(OK -> user)).getOrElse(complete(NotFound))
-                }
-              }
-          }
+        }
       }
   }
 

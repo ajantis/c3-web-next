@@ -29,31 +29,42 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.ifunsoftware.c3web.domain
+package com.ifunsoftware.c3web
+package users
 
-import scala.util.Try
-import User._
+import java.util.UUID
 
-case class User(id: Id, email: Email)
+import akka.actor.{ Props, ActorRef, ActorLogging, Actor }
+import com.ifunsoftware.c3web.users.UsersStore.{ FetchUserByEmail, FetchUserById }
+import domain._
 
-object User {
-  import spray.json._
-  import DefaultJsonProtocol._
-  import java.util.UUID
+class UsersStore extends Actor with ActorLogging {
+  import User._
 
-  type Id = UUID
-  type Email = String
+  // In-memory users store
+  val users: Map[Id, User] = Seq(
+    User(UUID.randomUUID(), "user1@test.com"),
+    User(UUID.randomUUID(), "user2@test.com"),
+    User(UUID.randomUUID(), "user3@test.com")).map(u => u.id -> u).toMap
 
-  implicit val uuidFormat = new JsonFormat[Id] {
-    override def read(json: JsValue): Id = {
-      json match {
-        case JsString(v) if Try(UUID.fromString(v)).isSuccess => UUID.fromString(v)
-        case _ => throw new DeserializationException(s"Failed to parse UUID from json value '$json'")
-      }
-    }
+  def receive = {
+    case FetchUserById(id)       => fetchUser(id, sender())
 
-    override def write(id: Id): JsValue = JsString(id.toString)
+    case FetchUserByEmail(email) => fetchUser(email, sender())
   }
 
-  implicit val format = jsonFormat2(User.apply)
+  private def fetchUser(id: User.Id, requester: ActorRef): Unit = {
+    requester ! users.get(id)
+  }
+
+  private def fetchUser(email: User.Email, requester: ActorRef): Unit = {
+    requester ! users.find(idAndUser => idAndUser._2.email == email)
+  }
+}
+
+object UsersStore {
+  case class FetchUserById(id: User.Id)
+  case class FetchUserByEmail(email: User.Email)
+
+  def props(): Props = Props(new UsersStore)
 }
