@@ -33,6 +33,9 @@ object C3WebBuild extends Build {
         }
       )
   }
+  unmanagedResourceDirectories in Compile <+= (baseDirectory)
+
+  excludeFilter in unmanagedResources := HiddenFileFilter || "node_modules*" || "project*" || "target*"
 }
 
 object ProjectSettings {
@@ -71,7 +74,7 @@ object ProjectSettings {
 }
 
 object Dependencies {
-  val akkaV = "2.3.12"
+  val akkaV = "2.4.0"
   val akkaStreamV = "1.0"
   val scalaTestV = "2.2.4"
   val sprayV = "1.3.3"
@@ -89,7 +92,8 @@ object Dependencies {
     Compile.sprayUtils,
     Compile.sprayCaching,
     Compile.sprayCan,
-    Compile.logger,
+    Compile.logback,
+    // Compile.logger,
     Test.scalatest)
 
   object Compile {
@@ -101,7 +105,8 @@ object Dependencies {
     val sprayCan = "io.spray" %% "spray-can" % sprayV
     val sprayJSONNE = "io.spray" %%  "spray-json"  % "1.2.5"
     val akkaActor = "com.typesafe.akka" %% "akka-actor" % akkaV
-    val logger = "com.typesafe.akka" %% "akka-slf4j" % akkaV
+    val logback = "ch.qos.logback" % "logback-classic" % "1.1.3"
+    // val logger = "com.typesafe.akka" % "akka-slf4j_2.11" % akkaV
     val akkaStream = "com.typesafe.akka" %% "akka-stream-experimental" % akkaStreamV
     val akkaHttpCore = "com.typesafe.akka" %% "akka-http-core-experimental" % akkaStreamV
     val akkaHttp = "com.typesafe.akka" %% "akka-http-experimental" % akkaStreamV
