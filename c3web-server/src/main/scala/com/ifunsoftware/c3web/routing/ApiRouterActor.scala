@@ -11,14 +11,15 @@ import spray.routing.HttpService
  * Factory method for Props configuration files for actors
  */
 object ApiRouterActor {
-  def props(authRoute: ActorRef, accRoute: ActorRef, groupsRoute: ActorRef, groupRoute: ActorRef): Props = Props(new ApiRouterActor(authRoute, accRoute, groupsRoute, groupRoute))
+  def props(authRoute: ActorRef, accRoute: ActorRef, groupsRoute: ActorRef, groupRoute: ActorRef, fileRoute: ActorRef): Props
+  = Props(new ApiRouterActor(authRoute, accRoute, groupsRoute, groupRoute, fileRoute))
 }
 
 /**
  * Routes the incoming request.  If the route begins with "api" the request is passed
  * along to the matching spray routing actor (if there's a match)
  */
-class ApiRouterActor(authRoute: ActorRef, accRoute: ActorRef, groupsRoute: ActorRef, groupRoute: ActorRef) extends Actor
+class ApiRouterActor(authRoute: ActorRef, accRoute: ActorRef, groupsRoute: ActorRef, groupRoute: ActorRef, fileRoute: ActorRef) extends Actor
   with HttpService
   with ActorLogging {
 
@@ -30,7 +31,8 @@ class ApiRouterActor(authRoute: ActorRef, accRoute: ActorRef, groupsRoute: Actor
         pathPrefix("auth") { ctx => authRoute ! ctx } ~
           pathPrefix("user") { ctx => accRoute ! ctx } ~
           pathPrefix("groups") { ctx => groupsRoute ! ctx } ~
-          pathPrefix("group") { ctx => groupRoute ! ctx }
+          pathPrefix("group") { ctx => groupRoute ! ctx } ~
+          pathPrefix("file") { ctx => fileRoute ! ctx }
       } ~
         {
           path("") {

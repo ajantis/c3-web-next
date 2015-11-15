@@ -93,7 +93,7 @@ object Dependencies {
     Compile.sprayCaching,
     Compile.sprayCan,
     Compile.logback,
-    // Compile.logger,
+    Compile.logger,
     Test.scalatest)
 
   object Compile {
@@ -106,7 +106,7 @@ object Dependencies {
     val sprayJSONNE = "io.spray" %%  "spray-json"  % "1.2.5"
     val akkaActor = "com.typesafe.akka" %% "akka-actor" % akkaV
     val logback = "ch.qos.logback" % "logback-classic" % "1.1.3"
-    // val logger = "com.typesafe.akka" % "akka-slf4j_2.11" % akkaV
+    val logger = "com.typesafe.akka" % "akka-slf4j_2.11" % akkaV
     val akkaStream = "com.typesafe.akka" %% "akka-stream-experimental" % akkaStreamV
     val akkaHttpCore = "com.typesafe.akka" %% "akka-http-core-experimental" % akkaStreamV
     val akkaHttp = "com.typesafe.akka" %% "akka-http-experimental" % akkaStreamV

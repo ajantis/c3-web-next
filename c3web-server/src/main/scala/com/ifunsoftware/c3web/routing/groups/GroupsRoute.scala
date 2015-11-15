@@ -1,4 +1,4 @@
-package com.ifunsoftware.c3web.routing
+package com.ifunsoftware.c3web.routing.groups
 
 /**
  * Created by alexander on 9/22/2015.

@@ -1,4 +1,4 @@
-package com.ifunsoftware.c3web.routing
+package com.ifunsoftware.c3web.routing.groups
 
 import akka.actor.{Actor, Props}
 import com.ifunsoftware.c3web.models.Group
