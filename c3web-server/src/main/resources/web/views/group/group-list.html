@@ -20,7 +20,7 @@
                 </div>
                 <div class="panel-body">
                     <ul class="list-group recent-comments">
-                        <li class="list-group-item clearfix comment-success" ng-repeat="group in groups">
+                        <li class="list-group-item clearfix comment-success" ng-repeat="group in groups | orderBy:'+groupname'">
                             <div class="avatar pull-left mr15">
                                 <i class="fa fa-comments fa-4x"></i>
                             </div>
