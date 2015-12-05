@@ -44,6 +44,5 @@ object Boot extends App {
   val services = ActorSystemBean()
   implicit val system = services.system
   val service = services.apiRouterActor
-
   IO(Http) ! Http.Bind(service, interface = config.getString("http.interface"), port = config.getInt("http.port"))
 }

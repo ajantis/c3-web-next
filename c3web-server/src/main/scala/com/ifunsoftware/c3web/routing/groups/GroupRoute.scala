@@ -59,7 +59,7 @@ trait GroupRouteTrait extends HttpService with SprayJsonSupport {
         entity(as[Group]) { group =>
           log.debug("posting to create a group")
           val newGroup = groupService.addGroup(group)
-          complete(StatusCodes.Created, newGroup)
+          complete(newGroup)
         }
       }
   }

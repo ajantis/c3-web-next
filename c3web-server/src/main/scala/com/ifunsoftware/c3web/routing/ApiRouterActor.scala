@@ -24,11 +24,11 @@ class ApiRouterActor(authRoute: ActorRef, accRoute: ActorRef, groupsRoute: Actor
   with ActorLogging {
 
   def actorRefFactory = context
-
   def receive = runRoute {
     compressResponseIfRequested() {
       pathPrefix("api") {
-        pathPrefix("auth") { ctx => authRoute ! ctx } ~
+          log.debug("Handling API request")
+          pathPrefix("auth") { ctx => authRoute ! ctx } ~
           pathPrefix("user") { ctx => accRoute ! ctx } ~
           pathPrefix("groups") { ctx => groupsRoute ! ctx } ~
           pathPrefix("group") { ctx => groupRoute ! ctx } ~

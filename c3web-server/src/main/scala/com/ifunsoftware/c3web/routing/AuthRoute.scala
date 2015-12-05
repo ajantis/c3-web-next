@@ -33,8 +33,7 @@ class AuthRoute() extends Actor with AuthRouteTrait {
  * routing logic can be tested outside of an actor system in specs/mockito tests
  */
 trait AuthRouteTrait extends HttpService with SprayJsonSupport {
-
-  val log = LoggerFactory.getLogger(classOf[AuthRouteTrait])
+  val log = LoggerFactory.getLogger(this.getClass)
   val authRoute = {
     get {
       pathEnd {
@@ -51,7 +50,7 @@ trait AuthRouteTrait extends HttpService with SprayJsonSupport {
             log.debug(s"Trying to authenticate user:${authInfo.username}")
             val authinfoupdated = authService.authenticateUser(authInfo)
             authinfoupdated match {
-              case Some(authinfoupdated) => complete(StatusCodes.OK, authinfoupdated)
+              case Some(authinfoupdated) => complete(authinfoupdated)
               case None => complete(StatusCodes.NotFound)
             }
           }

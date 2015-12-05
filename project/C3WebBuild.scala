@@ -70,7 +70,7 @@ object ProjectSettings {
       .setPreference(AlignSingleLineCaseStatements, true)
   }
   val ProjectVersion = "1.0"
-  val ScalaVersion = "2.11.5"
+  val ScalaVersion = "2.11.6"
 }
 
 object Dependencies {
@@ -92,9 +92,9 @@ object Dependencies {
     Compile.sprayUtils,
     Compile.sprayCaching,
     Compile.sprayCan,
-    Compile.logback,
     Compile.logger,
-    Test.scalatest)
+    Compile.logback,
+    Test.scalatest, Test.scalaspec)
 
   object Compile {
     val sprayServlet = "io.spray" %% "spray-servlet" % sprayV
@@ -105,17 +105,18 @@ object Dependencies {
     val sprayCan = "io.spray" %% "spray-can" % sprayV
     val sprayJSONNE = "io.spray" %%  "spray-json"  % "1.2.5"
     val akkaActor = "com.typesafe.akka" %% "akka-actor" % akkaV
-    val logback = "ch.qos.logback" % "logback-classic" % "1.1.3"
-    val logger = "com.typesafe.akka" % "akka-slf4j_2.11" % akkaV
     val akkaStream = "com.typesafe.akka" %% "akka-stream-experimental" % akkaStreamV
     val akkaHttpCore = "com.typesafe.akka" %% "akka-http-core-experimental" % akkaStreamV
     val akkaHttp = "com.typesafe.akka" %% "akka-http-experimental" % akkaStreamV
+    val logger = "com.typesafe.akka" % "akka-slf4j_2.11" % akkaV
+    val logback = "ch.qos.logback" % "logback-classic" % "1.1.3"
     val sprayJson = "com.typesafe.akka" %% "akka-http-spray-json-experimental" % akkaStreamV
     val akkaHttpTestkit = "com.typesafe.akka" %% "akka-http-testkit-experimental" % akkaStreamV
   }
 
   object Test {
     val scalatest = "org.scalatest" %% "scalatest" % scalaTestV % "test"
+    val scalaspec = "org.specs2" %% "specs2" % "2.3.13" % "test"
   }
 
 }

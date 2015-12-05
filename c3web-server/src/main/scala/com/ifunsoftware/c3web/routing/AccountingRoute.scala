@@ -58,7 +58,7 @@ trait AccountingRouteTrait extends HttpService with SprayJsonSupport {
         entity(as[User]) { user =>
           log.debug("posting to create a user")
           val newUser = userService.addUser(user)
-          complete(StatusCodes.Created, newUser)
+          complete(newUser)
         }
       } ~
       (put & path(LongNumber) & pathEnd) { userId =>
