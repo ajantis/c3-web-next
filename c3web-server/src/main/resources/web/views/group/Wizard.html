@@ -1,0 +1,15 @@
+<div class="wizard-navigation">
+    <ul class="nav nav-tabs" >
+        <li ng-repeat="tab in pages" ng-class="{active: tab.active, inactive: !tab.active}" ng-click="selectPage(tab.index)"><a>{{tab.title}}</a></li>
+    </ul>
+</div>
+<div class="wizard-body">
+    <div ng-include="selectedPage.view"></div>
+
+    <div class="wizard-buttons">
+        <button class="btn btn-success" type="submit" ng-if="!isNewMode || (isLast() && isNewMode)"><i class="glyphicon glyphicon-ok icon-white"></i>Save</button>
+        <button class="btn btn-default" type="button" ng-click="cancelEdit()"><i class="glyphicon glyphicon-remove"></i>Cancel</button>
+        <button class="btn btn-default right" type="button" ng-if="!isLast() && isNewMode" ng-click="next()"><i class="glyphicon glyphicon-chevron-right"></i>Next</button>
+        <button class="btn btn-default right" type="button"ng-if="!isFirst() && isNewMode" ng-click="back()"><i class="glyphicon glyphicon-chevron-left"></i>Back</button>
+    </div>
+</div>

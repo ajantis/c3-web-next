@@ -1,7 +1,17 @@
 <section id="services">
     <div class="container">
         <div class="col-lg-9 col-md-9">
-            <h1>{{group.groupname}}</h1>
+            <div ng-include="'views/group/Wizard.html'"></div>
+        </div>
+        <div class="col-lg-3 col-md-3">
+            <div class="panel panel-default toggle">
+                <div class="panel-heading">
+                    <h4 class="panel-title">{{group.groupname}}</h4>
+                </div>
+                <div class="panel-body">
+
+                </div>
+            </div>
         </div>
     </div>
 </section>

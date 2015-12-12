@@ -1,0 +1,68 @@
+<div class="" ng-controller="group.groupFilesController">
+    <div>
+        <ol class="breadcrumb">
+            <li><a href="#">Главная</a></li>
+            <li><a href="#">Библиотека</a></li>
+            <li class="active">Данные</li>
+        </ol>
+        <div class="btn-toolbar" role="toolbar" id="toolbar">
+            <div class="btn-group" role="group" aria-label="..."><a href="#" ref="tooltip" title="Back"><i class="fa fa-arrow-circle-left"></i></a></div>
+            <div class="btn-group" role="group" aria-label="..."><a href="#" ref="tooltip" title="New File"><i class="fa fa-file"></i></a></div>
+            <div class="btn-group" role="group" aria-label="..."><a href="#" ref="tooltip" title="Add Folder"><i class="fa fa-folder-open"></i></a></div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span9">
+                <div ng-if="!detailInfo" id="content" class="well">
+                    <table class="table table-stripped">
+                        <thead>
+                        <tr>
+                            <th>UID</th>
+                            <th>Type</th>
+                            <th>Name</th>
+                            <th>Size</th>
+                            <th>Owner</th>
+                            <th>Creation Time</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="element in elements | filter: query">
+                            <td>{{element.uid}}</td>
+                            <td><img alt="{{element.type}}" ng-src="img/{{element.type}}.png" class="thumb"/></td>
+                            <td><a ng-click="showDetails(element.name)">{{element.name}}</a></td>
+                            <td>{{element.size}}</td>
+                            <td>{{element.owner}}</td>
+                            <td>{{element.ctime}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div ng-if="detailInfo" id="detailInfo" class="well">
+                    <div class="modal-header">
+                        <button type="button" class="close" ng-click="closeDetails()">&times</button>
+                        <h3>{{element.name}}</h3>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row-fluid">
+                            <div class="span4">
+                                <img ng-src="img/{{element.type}}.png" />
+                            </div>
+                            <div class="span8">
+                                <p>UID: {{element.uid}}</p>
+                                <p>Name: {{element.name}}</p>
+                                <p>Type: {{element.type}}</p>
+                                <p>Size: {{element.size}}</p>
+                                <p>Owner: {{element.owner}}</p>
+                                <p>Creation Time: {{element.ctime}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn" ng-click="closeDetails()">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

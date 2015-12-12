@@ -8,13 +8,12 @@
     $scope.login = {};
     $scope.signup = {};
     $scope.doLogin = function (user) {
-        LoginService.getUser().then(function (results) {
-            if (results.status == "success") {
+        LoginService.auth(user).then(function (results) {
+            if (results.status == "200") {
                  $scope.IsLogin = true;
                  $scope.user = {
-						uid:results.uid,
-						name : results.name,
-                    	email : results.email
+                    	username : results.data.username,
+                    	token: results.data.api_token
 					};
             }
         });
@@ -31,9 +30,8 @@
 			if (results.uid) {
 				$scope.IsLogin= true;
 				$scope.user = {
-					uid:results.uid,
-					name : results.name,
-					email : results.email
+                    username : results.data.username,
+                    token:results.data.api_token
 				};
 			} else {
 			   $scope.IsLogin= false;
