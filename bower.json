@@ -32,6 +32,7 @@
     "angular-toastr": "~1.5",
     "angular": "~1.4",
     "angular-material": "master",
-    "components-font-awesome": "~4.4"
+    "components-font-awesome": "~4.4",
+    "lodash": "~3.10.1"
   }
 }
