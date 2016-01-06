@@ -18,7 +18,7 @@
     "prestart": "npm install",
     "pretest": "npm install",
 
-    "start": "node node_modules/.bin/json-server db.json --static c3web-server/src/main/resources/web/ --watch true --port 9000",
+    "start": "node node_modules/.bin/json-server db.json --routes routes.json --static c3web-server/src/main/resources/web --watch true --port 9000",
 
     "test": "node node_modules/karma/bin/karma start c3web-server/src/main/resources/test/karma.conf.js",
     "test-single-run": "node node_modules/karma/bin/karma start c3web-server/src/main/resources/test/karma.conf.js  --single-run",
