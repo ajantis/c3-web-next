@@ -1,0 +1,9 @@
+{
+  "groups": [
+    { "id": 1, "title": "Group 1", "author": "TBD" }
+  ],
+  "comments": [
+    { "id": 1, "body": "some comment", "postId": 1 }
+  ],
+  "profile": { "name": "typicode" }
+}
