@@ -1,8 +1,8 @@
 package com.ifunsoftware.c3web.models
 
 /**
-  * Created by alexander on 19.12.15.
-  */
+ * Created by alexander on 19.12.15.
+ */
 
 case class C3Path(path: String) {
 
@@ -55,11 +55,11 @@ object C3Path {
   def apply(groupId: String, path: List[String], extension: String): String = {
     "/" + groupId + "/" + path.init.mkString("/") + "/" +
       path.last + {
-      extension match {
-        case ""  => ""
-        case ext => "." + ext
+        extension match {
+          case ""  => ""
+          case ext => "." + ext
+        }
       }
-    }
   }
 }
 

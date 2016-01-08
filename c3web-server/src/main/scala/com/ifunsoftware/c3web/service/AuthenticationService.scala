@@ -15,7 +15,7 @@ object AuthenticationService {
 
   def authenticateUser(userAuthInfo: AuthInfo): Option[AuthInfo] = {
     userMock.find(_.username == userAuthInfo.username).find(_.password == userAuthInfo.password) match {
-      case None => Option(null)
+      case None       => Option(null)
       case Some(user) => Some(userAuthInfo.copy(api_token = Some("token" + Random.nextGaussian())))
     }
   }

@@ -4,7 +4,7 @@ package com.ifunsoftware.c3web.routing.groups
  * Created by alexander on 9/22/2015.
  */
 
-import akka.actor.{Actor, Props}
+import akka.actor.{ Actor, Props }
 import com.ifunsoftware.c3web.service.GroupService
 import org.slf4j.LoggerFactory
 import spray.http.StatusCodes
@@ -42,7 +42,7 @@ trait GroupsRouteTrait extends HttpService with SprayJsonSupport {
           val groups = groupService.getGroups
           groups match {
             case head :: tail => groups
-            case Nil => StatusCodes.NoContent
+            case Nil          => StatusCodes.NoContent
           }
         }
       }

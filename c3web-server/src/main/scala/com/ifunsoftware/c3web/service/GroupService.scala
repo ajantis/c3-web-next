@@ -1,5 +1,7 @@
 package com.ifunsoftware.c3web.service
 
+import java.util.UUID
+
 import com.ifunsoftware.c3web.data.GroupData
 import com.ifunsoftware.c3web.models.Group
 
@@ -19,13 +21,13 @@ object GroupService {
     groupMock.toList
   }
 
-  def getGroupByUUID(UUID: String): Option[Group] = {
-    groupMock find (_.uid.contains(UUID))
+  def getGroupById(UUID: String): Option[Group] = {
+    groupMock find (_.id.contains(UUID))
   }
 
   def addGroup(group: Group): Group = {
-    val maxId = groupMock.map(_.id).flatten.max + 1
-    val newgroup = group.copy(id = Some(maxId))
+    val maxId = UUID.randomUUID()
+    val newgroup = group.copy(id = maxId.toString)
     groupMock += newgroup
     newgroup
   }
@@ -33,19 +35,14 @@ object GroupService {
   def updateGroup(group: Group): Boolean = {
     groupMock.indexWhere(_.id == group.id) match {
       case -1 => false
-      case i => groupMock.update(i, group); true
+      case i  => groupMock.update(i, group); true
     }
   }
 
-  def deleteGroup(id: Int): Unit = {
-    getGroupById(id) match {
+  def deleteGroup(UUID: String): Unit = {
+    getGroupById(UUID) match {
       case Some(group) => groupMock -= group
-      case None =>
+      case None        =>
     }
   }
-
-  def getGroupById(groupId: Int): Option[Group] = {
-    groupMock find (_.id == Some(groupId))
-  }
-
 }

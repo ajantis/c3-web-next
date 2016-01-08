@@ -1,6 +1,6 @@
 package com.ifunsoftware.c3web.routing.groups
 
-import akka.actor.{Actor, Props}
+import akka.actor.{ Actor, Props }
 import com.ifunsoftware.c3web.models.Group
 import com.ifunsoftware.c3web.models.GroupEntryJson._
 import com.ifunsoftware.c3web.service.GroupService
@@ -41,19 +41,14 @@ trait GroupRouteTrait extends HttpService with SprayJsonSupport {
       pathEnd {
         complete(StatusCodes.NoContent)
       } ~
-        path(IntNumber) { groupId =>
-        log.debug(s"Hitting Get GROUP by Id:${groupId}")
-        val group = groupService.getGroupById(groupId)
-        complete(group)
-        } ~
-      path(JavaUUID) { groupUID =>
-        log.debug(s"Hitting Get GROUP by Id:${groupUID}")
-        val group = groupService.getGroupByUUID(groupUID.toString)
-        group match {
-          case None => complete(StatusCodes.NoContent)
-          case Some(group) => complete(group)
+        path(JavaUUID) { groupUID =>
+          log.debug(s"Hitting Get GROUP by Id:${groupUID}")
+          val group = groupService.getGroupById(groupUID.toString)
+          group match {
+            case None        => complete(StatusCodes.NoContent)
+            case Some(group) => complete(group)
+          }
         }
-      }
     } ~
       (post & pathEnd) {
         entity(as[Group]) { group =>
@@ -67,7 +62,7 @@ trait GroupRouteTrait extends HttpService with SprayJsonSupport {
           log.debug(s"updating a GROUP with the id: ${groupId}")
           val updatedGroup = groupService.updateGroup(group)
           updatedGroup match {
-            case true => complete(StatusCodes.NoContent)
+            case true  => complete(StatusCodes.NoContent)
             case false => complete(StatusCodes.NotFound)
           }
         }

@@ -1,45 +1,45 @@
 package com.ifunsoftware.c3web.security
 
 /**
-  * Created by alexander on 15.11.15.
-  */
+ * Created by alexander on 15.11.15.
+ */
 
-import scala.concurrent.{ExecutionContext, Future}
-import spray.routing.{AuthenticationFailedRejection, RequestContext}
-import spray.routing.authentication.{Authentication, ContextAuthenticator}
+import scala.concurrent.{ ExecutionContext, Future }
+import spray.routing.{ AuthenticationFailedRejection, RequestContext }
+import spray.routing.authentication.{ Authentication, ContextAuthenticator }
 
-/** Token based authentication for Spray Routing.
-  *
-  * Extracts an API key from the header or querystring and authenticates requests.
-  *
-  * TokenAuthenticator[T] takes arguments for the named header/query string containing the API key and
-  * an authenticator that returns an Option[T]. If None is returned from the authenticator, the request
-  * is rejected.
-  *
-  * Usage:
-  *
-  * val authenticator = TokenAuthenticator[User](
-  * headerName = "My-Api-Key",
-  * queryStringParameterName = "api_key"
-  * ) { key =>
-  * User.findByAPIKey(key)
-  * }
-  *
-  * def auth: Directive1[User] = authenticate(authenticator)
-  *
-  * val home = path("home") {
-  * auth { user =>
-  * get {
-  * complete("OK")
-  * }
-  * }
-  * }
-  */
+/**
+ * Token based authentication for Spray Routing.
+ *
+ * Extracts an API key from the header or querystring and authenticates requests.
+ *
+ * TokenAuthenticator[T] takes arguments for the named header/query string containing the API key and
+ * an authenticator that returns an Option[T]. If None is returned from the authenticator, the request
+ * is rejected.
+ *
+ * Usage:
+ *
+ * val authenticator = TokenAuthenticator[User](
+ * headerName = "My-Api-Key",
+ * queryStringParameterName = "api_key"
+ * ) { key =>
+ * User.findByAPIKey(key)
+ * }
+ *
+ * def auth: Directive1[User] = authenticate(authenticator)
+ *
+ * val home = path("home") {
+ * auth { user =>
+ * get {
+ * complete("OK")
+ * }
+ * }
+ * }
+ */
 
 object TokenAuthenticator {
 
-  def apply[T](headerName: String, queryStringParameterName: String)(authenticator: (String => Future[Option[T]]))
-              (implicit executionContext: ExecutionContext) = {
+  def apply[T](headerName: String, queryStringParameterName: String)(authenticator: (String => Future[Option[T]]))(implicit executionContext: ExecutionContext) = {
 
     def extractor(context: RequestContext) =
       TokenExtraction.fromHeader(headerName)(context) orElse
@@ -48,8 +48,7 @@ object TokenAuthenticator {
     new TokenAuthenticator(extractor, authenticator)
   }
 
-  class TokenAuthenticator[T](extractor: TokenExtraction.TokenExtractor, authenticator: (String => Future[Option[T]]))
-                             (implicit executionContext: ExecutionContext) extends ContextAuthenticator[T] {
+  class TokenAuthenticator[T](extractor: TokenExtraction.TokenExtractor, authenticator: (String => Future[Option[T]]))(implicit executionContext: ExecutionContext) extends ContextAuthenticator[T] {
 
     import AuthenticationFailedRejection._
 
@@ -57,8 +56,7 @@ object TokenAuthenticator {
       extractor(context) match {
         case None =>
           Future(
-            Left(AuthenticationFailedRejection(CredentialsMissing, List()))
-          )
+            Left(AuthenticationFailedRejection(CredentialsMissing, List())))
         case Some(token) =>
           authenticator(token) map {
             case Some(t) =>

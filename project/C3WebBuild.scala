@@ -94,6 +94,7 @@ object Dependencies {
     Compile.sprayCan,
     Compile.logger,
     Compile.logback,
+    Compile.jodaTime,
     Test.scalatest, Test.scalaspec)
 
   object Compile {
@@ -112,6 +113,7 @@ object Dependencies {
     val logback = "ch.qos.logback" % "logback-classic" % "1.1.3"
     val sprayJson = "com.typesafe.akka" %% "akka-http-spray-json-experimental" % akkaStreamV
     val akkaHttpTestkit = "com.typesafe.akka" %% "akka-http-testkit-experimental" % akkaStreamV
+    val jodaTime = "joda-time" % "joda-time" % "2.9.1"
   }
 
   object Test {

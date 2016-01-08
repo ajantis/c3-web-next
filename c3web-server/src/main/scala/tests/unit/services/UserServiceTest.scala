@@ -4,8 +4,8 @@ package tests.unit.services
 //import org.specs2.mock._
 
 /**
-  * Created by alexander on 22.11.15.
-  */
+ * Created by alexander on 22.11.15.
+ */
 //object UserServiceTest extends Specification with Mockito {
 //
 //  "MyService#isDailyData" should {

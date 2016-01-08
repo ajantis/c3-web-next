@@ -4,7 +4,7 @@ package com.ifunsoftware.c3web.routing
  * Created by alexander on 9/22/2015.
  */
 
-import akka.actor.{Actor, Props}
+import akka.actor.{ Actor, Props }
 import com.ifunsoftware.c3web.models.AuthInfo
 import com.ifunsoftware.c3web.models.AuthInfoEntryJson._
 import com.ifunsoftware.c3web.service.AuthenticationService
@@ -51,7 +51,7 @@ trait AuthRouteTrait extends HttpService with SprayJsonSupport {
             val authinfoupdated = authService.authenticateUser(authInfo)
             authinfoupdated match {
               case Some(authinfoupdated) => complete(authinfoupdated)
-              case None => complete(StatusCodes.NotFound)
+              case None                  => complete(StatusCodes.NotFound)
             }
           }
         }

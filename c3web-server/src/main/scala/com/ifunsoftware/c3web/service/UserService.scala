@@ -1,5 +1,7 @@
 package com.ifunsoftware.c3web.service
 
+import java.util.UUID
+
 import com.ifunsoftware.c3web.data.UserData
 import com.ifunsoftware.c3web.models.User
 
@@ -25,8 +27,8 @@ object UserService {
   }
 
   def addUser(user: User): User = {
-    val maxId = userMock.map(_.id).flatten.max + 1
-    val newUser = user.copy(id = Some(maxId))
+    val maxId = UUID.randomUUID().toString
+    val newUser = user.copy(id = maxId)
     userMock += newUser
     newUser
   }
@@ -34,19 +36,19 @@ object UserService {
   def updateUser(user: User): Boolean = {
     userMock.indexWhere(_.id == user.id) match {
       case -1 => false
-      case i => userMock.update(i, user); true
+      case i  => userMock.update(i, user); true
     }
   }
 
-  def deleteUser(id: Int): Unit = {
-    getUserById(id) match {
+  def deleteUser(userUUID: String): Unit = {
+    getUserById(userUUID) match {
       case Some(user) => userMock -= user
-      case None =>
+      case None       =>
     }
   }
 
-  def getUserById(userId: Long): Option[User] = {
-    userMock find (_.id == Some(userId))
+  def getUserById(userUUID: String): Option[User] = {
+    userMock find (_.id == userUUID)
   }
 
 }
