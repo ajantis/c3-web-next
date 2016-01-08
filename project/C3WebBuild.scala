@@ -54,7 +54,8 @@ object ProjectSettings {
       ))
   resolvers ++=
     Seq(
-      "spray repo" at "http://repo.spray.io/"
+      "spray repo" at "http://repo.spray.io/",
+      "Typesafe Repository" at "http://repo.typesafe.com/typesafe/releases/"
     )
   lazy val c3webAssemblySettings = Seq(
     mainClass in assembly := Some("com.ifunsoftware.c3web.Boot"),
@@ -70,14 +71,14 @@ object ProjectSettings {
       .setPreference(AlignSingleLineCaseStatements, true)
   }
   val ProjectVersion = "1.0"
-  val ScalaVersion = "2.11.6"
+  val ScalaVersion = "2.11.7"
 }
 
 object Dependencies {
-  val akkaV = "2.4.0"
-  val akkaStreamV = "1.0"
-  val scalaTestV = "2.2.4"
+  val akkaV = "2.4.1"
+  val akkaStreamV = "2.0.1"
   val sprayV = "1.3.3"
+  val scalaTestV = "2.2.6"
   val c3webServer = Seq(
     Compile.akkaActor,
     Compile.akkaStream,
@@ -85,7 +86,6 @@ object Dependencies {
     Compile.akkaHttp,
     Compile.sprayJson,
     Compile.sprayJSONNE,
-    Compile.akkaHttpTestkit,
     Compile.sprayServlet,
     Compile.sprayRouting,
     Compile.sprayClient,
@@ -94,8 +94,7 @@ object Dependencies {
     Compile.sprayCan,
     Compile.logger,
     Compile.logback,
-    Compile.jodaTime,
-    Test.scalatest, Test.scalaspec)
+    Test.scalatest, Test.spraytestkit, Test.scalaspec)
 
   object Compile {
     val sprayServlet = "io.spray" %% "spray-servlet" % sprayV
@@ -104,21 +103,19 @@ object Dependencies {
     val sprayUtils = "io.spray" %% "spray-util" % sprayV
     val sprayCaching = "io.spray" %% "spray-caching" % sprayV
     val sprayCan = "io.spray" %% "spray-can" % sprayV
-    val sprayJSONNE = "io.spray" %%  "spray-json"  % "1.2.5"
-    val akkaActor = "com.typesafe.akka" %% "akka-actor" % akkaV
-    val akkaStream = "com.typesafe.akka" %% "akka-stream-experimental" % akkaStreamV
-    val akkaHttpCore = "com.typesafe.akka" %% "akka-http-core-experimental" % akkaStreamV
-    val akkaHttp = "com.typesafe.akka" %% "akka-http-experimental" % akkaStreamV
+    val sprayJSONNE = "io.spray" %%  "spray-json"  % "1.3.2"
+    val akkaActor = "com.typesafe.akka" % "akka-actor_2.11" % akkaV
     val logger = "com.typesafe.akka" % "akka-slf4j_2.11" % akkaV
-    val logback = "ch.qos.logback" % "logback-classic" % "1.1.3"
+    val akkaStream = "com.typesafe.akka" % "akka-stream-experimental_2.11" % akkaStreamV
+    val akkaHttpCore = "com.typesafe.akka" % "akka-http-core-experimental_2.11" % akkaStreamV
+    val akkaHttp = "com.typesafe.akka" % "akka-http-experimental_2.11" % akkaStreamV
     val sprayJson = "com.typesafe.akka" %% "akka-http-spray-json-experimental" % akkaStreamV
-    val akkaHttpTestkit = "com.typesafe.akka" %% "akka-http-testkit-experimental" % akkaStreamV
-    val jodaTime = "joda-time" % "joda-time" % "2.9.1"
+    val logback = "ch.qos.logback" % "logback-classic" % "1.1.3"
   }
 
   object Test {
-    val scalatest = "org.scalatest" %% "scalatest" % scalaTestV % "test"
-    val scalaspec = "org.specs2" %% "specs2" % "2.3.13" % "test"
+    val scalatest = "org.scalatest" % "scalatest_2.11" % "3.0.0-M15" % "test"
+    val scalaspec = "org.specs2" % "specs2-core_2.11" % "3.7"
+    val spraytestkit = "io.spray" % "spray-testkit_2.11" % sprayV % "test"
   }
-
 }
