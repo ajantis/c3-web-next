@@ -1,8 +1,8 @@
 package com.ifunsoftware.c3web.routing.journal
 
 /**
-  * Created by alexander on 1/8/2016.
-  */
+ * Created by alexander on 1/8/2016.
+ */
 import akka.actor.{ Actor, Props }
 import com.ifunsoftware.c3web.models.JournalMessage
 import com.ifunsoftware.c3web.models.JournalMessageEntryJson._
@@ -13,15 +13,15 @@ import spray.httpx.SprayJsonSupport
 import spray.routing.HttpService
 
 /**
-  * Factory method for Props configuration files for actors
-  */
+ * Factory method for Props configuration files for actors
+ */
 object JournalMessagesRoute {
   def props: Props = Props(new JournalMessagesRoute())
 }
 
 /**
-  * Actor that handles requests that begin with "user" (accounting)
-  */
+ * Actor that handles requests that begin with "user" (accounting)
+ */
 class JournalMessagesRoute() extends Actor with JournalMessagesRouteTrait {
   def actorRefFactory = context
 
@@ -29,9 +29,9 @@ class JournalMessagesRoute() extends Actor with JournalMessagesRouteTrait {
 }
 
 /**
-  * Separate routing logic in an HttpService trait so that the
-  * routing logic can be tested outside of an actor system in specs/mockito tests
-  */
+ * Separate routing logic in an HttpService trait so that the
+ * routing logic can be tested outside of an actor system in specs/mockito tests
+ */
 trait JournalMessagesRouteTrait extends HttpService with SprayJsonSupport {
 
   val log = LoggerFactory.getLogger(classOf[JournalMessagesRoute])

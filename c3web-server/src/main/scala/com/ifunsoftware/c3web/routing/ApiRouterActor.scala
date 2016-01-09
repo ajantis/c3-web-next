@@ -11,8 +11,7 @@ import spray.routing.HttpService
  * Factory method for Props configuration files for actors
  */
 object ApiRouterActor {
-  def props(authRoute: ActorRef, accRoute: ActorRef, groupsRoute: ActorRef, groupRoute: ActorRef, fileRoute: ActorRef, journalRoute: ActorRef):
-  Props = Props(new ApiRouterActor(authRoute, accRoute, groupsRoute, groupRoute, fileRoute, journalRoute))
+  def props(authRoute: ActorRef, accRoute: ActorRef, groupsRoute: ActorRef, groupRoute: ActorRef, fileRoute: ActorRef, journalRoute: ActorRef): Props = Props(new ApiRouterActor(authRoute, accRoute, groupsRoute, groupRoute, fileRoute, journalRoute))
 }
 
 /**

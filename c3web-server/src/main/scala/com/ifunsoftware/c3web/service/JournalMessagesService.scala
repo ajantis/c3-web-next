@@ -2,13 +2,13 @@ package com.ifunsoftware.c3web.service
 
 import java.util.UUID
 
-import com.ifunsoftware.c3web.data.{JournalMessagesData}
-import com.ifunsoftware.c3web.models.{JournalMessage}
+import com.ifunsoftware.c3web.data.{ JournalMessagesData }
+import com.ifunsoftware.c3web.models.{ JournalMessage }
 import spray.routing.RequestContext
 
 /**
-  * Created by alexander on 1/8/2016.
-  */
+ * Created by alexander on 1/8/2016.
+ */
 object JournalMessagesService {
   import JournalMessagesData.messagesMock
 

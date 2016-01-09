@@ -38,7 +38,7 @@ trait AccountingRouteTrait extends HttpService with SprayJsonSupport {
   val log = LoggerFactory.getLogger(classOf[AccountingRouteTrait])
   val accRoute = {
     get {
-      pathEnd {
+      pathSingleSlash {
         complete {
           log.debug("Hitting Get All Users")
           val users = userService.getUsers

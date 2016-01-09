@@ -1,11 +1,8 @@
 package com.ifunsoftware.c3web.models
 
 /**
-  * Created by alexander on 1/8/2016.
-  */
-
-import org.joda.time.DateTime
-import org.joda.time.format.{DateTimeFormatter, ISODateTimeFormat}
+ * Created by alexander on 1/8/2016.
+ */
 import spray.json._
 
 object JournalMessageEntryJson extends DefaultJsonProtocol {
@@ -13,7 +10,7 @@ object JournalMessageEntryJson extends DefaultJsonProtocol {
 }
 
 case class JournalMessage(groupId: String, authorId: String, content: String, id: String,
-                   tags: List[String], parent: Option[String] = None) {
+                          tags: List[String], parent: Option[String] = None) {
 
   override def toString = {
     val builder = new StringBuilder("Message{")
@@ -23,5 +20,5 @@ case class JournalMessage(groupId: String, authorId: String, content: String, id
       append(", parent = ").append(parent).
       append("}")
     builder.toString()
-}
+  }
 }

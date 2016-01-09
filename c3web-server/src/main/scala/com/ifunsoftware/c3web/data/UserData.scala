@@ -21,5 +21,3 @@ object UserData {
     User("4d50ca40-49bb-4c10-9317-45f32cf8a944", "test@test.com", "test"))
 }
 
-
-
