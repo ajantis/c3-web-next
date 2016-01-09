@@ -1,10 +1,19 @@
-language: java
+language: scala
 cache:
   directories:
   - .sbt
 script:
   - sbt compile
+  - sbt test
 branches:
-  -angular
   -master
+scala:
+  - 2.10.5
+jdk:
+  - oraclejdk7
+  - openjdk7
+
+notifications:
+  email:
+    - mrparovoz@gmail.com
   
