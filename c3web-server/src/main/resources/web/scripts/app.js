@@ -14,6 +14,10 @@ angular.module('C3web')
             templateUrl: 'views/group/group.html',
             controller: 'group.groupController'
         })
+        .when('/upload', {
+            templateUrl: 'views/group/group-file-upload.html',
+            controller: 'fileUploadController'
+        })
         .when('/r_suite',{
                       title: 'R_suite',
                       templateUrl: 'views/r_suite.html'
