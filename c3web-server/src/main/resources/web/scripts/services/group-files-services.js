@@ -11,10 +11,15 @@
         var get = function (groupID) {
             return jsonService.get('group/' + groupID);
         };
+        var create = function (url, file) {
+            return jsonService.post(url, file, null, null, null)
+        }
+
 
         return {
             list: list,
-            get: get
+            get: get,
+            create: create
         };
     }]);
 })();

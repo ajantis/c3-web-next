@@ -30,7 +30,6 @@
             <h3>Select files</h3>
 
             <!-- Example: nv-file-select="" uploader="{Object}" options="{Object}" filters="{String}" -->
-            Multiple
             <input type="file" nv-file-select="" uploader="uploader" multiple  /><br/>
            </div>
 
@@ -50,7 +49,8 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="item in uploader.queue">
+                <tr ng-repeat-start="item in uploader.queue">
+                    <hr>
                     <td><strong>{{ item.file.name }}</strong></td>
                     <td ng-show="uploader.isHTML5" nowrap>{{ item.file.size/1024/1024|number:2 }} MB</td>
                     <td ng-show="uploader.isHTML5">
@@ -74,12 +74,43 @@
                             <span class="glyphicon glyphicon-trash"></span> Remove
                         </button>
                     </td>
-                    <td>
-                        <br/>
-                        <div>Название: <input type="text"></div>
-                        <div>Аннотация: <input type="text"></div>
-                        <div>Тип: <input type="text"></div>
-                            </td>
+
+                </tr>
+                <tr ng-repeat-end>
+                    <td colspan="5">
+                        <div class="form-group"><label for="inp_Name">Name:</label><input type="text" id="inp_Name" class="form-control" value="{{ item.file.name }}"></div>
+                        <div class="form-group"><label for="inp_Annotation">Annotation:</label><input type="text" id="inp_Annotation" class="form-control" value="Пример теговой аннотации"></div>
+                        <div class="form-group"><label for="sel_Type">Type:</label>
+                            <select id="sel_Type" class="form-control">
+                                <option>Диссертация</option>
+                                <option>Аннотация</option>
+                                <option>Доклад</option>
+                                <option>Слайды</option>
+                                <option>Рецензия</option>
+                                <option>Рекоментация</option>
+                                <option>Отзыв</option>
+                                <option>Тезисы</option>
+                                <option>Заявка</option>
+                                <option>Проектный материал</option>
+                                <option>Документация</option>
+                                <option>Реферат</option>
+                                <option>Обзор</option>
+                                <option>Эссэ</option>
+                                <option>Ссылка</option>
+                                <option>Статья</option>
+                                <option>Учебник</option>
+                                <option>Монография</option>
+                                <option>Руководство</option>
+                                <option>Конспект</option>
+                                <option>Отчет</option>
+                                <option>Лабораторная</option>
+                                <option>Курсовая</option>
+                                <option>План</option>
+                                <option>Письмо деловое</option>
+                                <option selected="selected">Другое</option>
+                            </select>
+                        </div>
+                    </td>
                 </tr>
                 </tbody>
             </table>
