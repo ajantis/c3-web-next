@@ -11,10 +11,9 @@
         var get = function (groupID) {
             return jsonService.get('group/' + groupID);
         };
-        var create = function (url, file) {
-            return jsonService.post(url, file, null, null, null)
+        var create = function (file) {
+            return jsonService.post("upload", file)
         }
-
 
         return {
             list: list,

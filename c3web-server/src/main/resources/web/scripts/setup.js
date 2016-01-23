@@ -9,9 +9,11 @@
         'ngResource',
         'ngAnimate',
         'toastr',
+        'ngTagsInput',
         // C3web
         'C3web.components',
         'C3web.controllers',
         'C3web.services',
         'C3web.directives'
     ]);
+
