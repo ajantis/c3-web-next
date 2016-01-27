@@ -9,7 +9,7 @@ import scala.collection.mutable.ArrayBuffer
  */
 object FileData {
   val fileMock = ArrayBuffer(
-    File("/3cb27531-6ba1-4270-b7bc-246d89b8502f/file1.txt", "TEST1", null),
-    File("/3cb27531-6ba1-4270-b7bc-246d89b8502f/file2.txt", "TEST2", null),
-    File("/3cb27531-6ba1-4270-b7bc-246d89b8502f/file3.txt", "TEST3", null))
+    File("/3cb27531-6ba1-4270-b7bc-246d89b8502f/file1.txt", "TEST1", None),
+    File("/3cb27531-6ba1-4270-b7bc-246d89b8502f/file2.txt", "TEST2", None),
+    File("/3cb27531-6ba1-4270-b7bc-246d89b8502f/file3.txt", "TEST3", None))
 }

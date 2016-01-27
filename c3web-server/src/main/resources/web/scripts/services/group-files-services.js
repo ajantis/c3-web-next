@@ -2,13 +2,13 @@
     'use strict';
 
     angular.module('C3web.services')
-    .factory('GroupFilesService', ['JsonService', function (jsonService) {
+    .factory('FilesService', ['JsonService', function (jsonService) {
 
-        var files = function (groupID,files) {
+        var get = function (groupID,files) {
             return jsonService.get('group/' + groupID + '/files/'+files);
         };
 
-        var get = function (groupID) {
+        var list = function (groupID) {
             return jsonService.get('group/' + groupID);
         };
         var create = function (file) {

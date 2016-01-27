@@ -22,9 +22,9 @@ object FilesService {
     fileMock find (_.url.equalsIgnoreCase(url))
   }
 
-  def addFile(file: File): Boolean = {
+  def addFile(file: File): File = {
     fileMock += file
-    true
+    file
   }
 
   def updateFile(file: File): Boolean = {
