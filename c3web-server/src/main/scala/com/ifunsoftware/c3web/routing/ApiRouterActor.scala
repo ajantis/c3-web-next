@@ -33,7 +33,8 @@ class ApiRouterActor(authRoute: ActorRef, accRoute: ActorRef, groupsRoute: Actor
           pathPrefix("groups") { ctx => groupsRoute ! ctx } ~
           pathPrefix("group") { ctx => groupRoute ! ctx } ~
           pathPrefix("journal") { ctx => journalRoute ! ctx } ~
-          pathPrefix("files") { ctx => filesRoute ! ctx }
+          pathPrefix("files") { ctx => filesRoute ! ctx } ~
+          pathPrefix("file") { ctx => fileRoute ! ctx }
       } ~
         {
           path("") {
