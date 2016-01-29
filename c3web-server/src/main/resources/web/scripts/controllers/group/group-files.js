@@ -1,15 +1,16 @@
 (function(angular){
     'use strict';
     angular.module('C3web.controllers')
-        .controller('group.groupFilesController',['$scope', 'GroupFilesService',function($scope, FilesService) {
+        .controller('group.groupFilesController',['$scope', '$routeParams', 'GroupFilesService',function($scope, $routeParams, FilesService) {
          /*$scope.elements=[{uid:'1', type:'dir',name:'TcpConnection terminated, stopping', size:'300 MB', owner:'Delar', ctime:'Tue, 17 Jun 2014 13:04:55 GMT'},
          {uid:'2', type:'img', size:'10 MB',name:'TcpConnection terminated',  owner:'Delar', ctime:'Tue, 17 Jun 2014 13:04:55 GMT'},
          {uid:'3', type:'txt', size:'1.2 MB',name:'TcpConnection terminated',  owner:'Delar', ctime:'Tue, 17 Jun 2014 13:04:55 GMT'}];*/
 
-         $scope.elements = {};
+            $scope.elements = {};
+            var idGroup = $routeParams.id.toString();
 
-         $scope.load = function(){
-                FilesService.list().then(function(result){
+            $scope.load = function(){
+                FilesService.list(idGroup).then(function(result){
                     var elementArray = [];
                     for (var i = 0; i <  result.data.length; i++) {
                         var file = result.data[i]

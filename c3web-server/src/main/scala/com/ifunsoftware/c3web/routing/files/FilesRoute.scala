@@ -30,16 +30,16 @@ trait FilesRouteTrait extends HttpService with SprayJsonSupport {
   val filesRoute = {
     get {
       pathEnd {
-        complete {
-          log.debug("Hitting to GET for Files path")
-          val files = filesService.getFiles
-          log.debug("Files got  ")
+        complete(StatusCodes.NoContent)
+      } ~
+        path(Segment) { filePath =>
+          log.debug("Hitting to GET for Files path from " + filePath)
+          val files = filesService.getFiles(filePath)
           files match {
-            case head :: tail => files
-            case Nil          => StatusCodes.NoContent
+            case head :: tail => complete(files)
+            case Nil          => complete(StatusCodes.NoContent)
           }
         }
-      }
     }
   }
   private val filesService = FilesService

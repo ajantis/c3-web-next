@@ -52,13 +52,16 @@ trait FileRouteTrait extends HttpService with SprayJsonSupport {
         }
     } ~
       (post & pathEnd) {
-        entity(as[File]) { file =>
+        formFields("file", "fileName", "fileSize", "fileTags", "fileType") { (fileContent, name, size, tags, fileType) =>
           log.debug("posting to create a File")
+          log.debug("fileJson: " + name);
+
+          val file = new File("/groupId123/" + name, tags, Option(fileContent.getBytes));
+
           val newFile = filesService.addFile(file)
-          complete(newFile)
+          complete(newFile);
         }
       } ~
-      //TODO fix
       (put & path(Segment) & pathEnd) { fileId =>
         entity(as[File]) { file =>
           log.debug(s"updating a File with the url: ${fileId}")

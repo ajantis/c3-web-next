@@ -5,7 +5,7 @@
 
         .controller('fileUploadController', ['$scope', 'FileUploader', function($scope, FileUploader) {
             var uploader = $scope.uploader = new FileUploader({
-                url: 'upload.php'
+                url: '/api/file'
             });
 
             // FILTERS
@@ -30,6 +30,10 @@
             };
             uploader.onBeforeUploadItem = function(item) {
                 console.info('onBeforeUploadItem', item);
+                item.formData.push({fileName: item.file.name});
+                item.formData.push({fileSize: item.file.size});
+                item.formData.push({fileTags: item.file.name});
+                item.formData.push({fileType: "Другое"});
             };
             uploader.onProgressItem = function(fileItem, progress) {
                 console.info('onProgressItem', fileItem, progress);

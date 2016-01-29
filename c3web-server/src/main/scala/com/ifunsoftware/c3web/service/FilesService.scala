@@ -14,8 +14,8 @@ object FilesService {
 
   import FileData.fileMock
 
-  def getFiles: List[File] = {
-    fileMock.toList
+  def getFiles(groupId: String): List[File] = {
+    (fileMock filter (_.url.contains(groupId))).toList
   }
 
   def getFileByUrl(url: String): Option[File] = {

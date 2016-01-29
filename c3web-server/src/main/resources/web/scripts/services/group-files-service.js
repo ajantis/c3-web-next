@@ -4,15 +4,15 @@
     angular.module('C3web.services')
     .factory('GroupFilesService', ['JsonService', function (jsonService) {
 
-        var get = function (groupID,files) {
-            return jsonService.get('group/' + groupID + '/files/'+files);
+        var get = function (groupID,fileRelativeUrl) {
+            return jsonService.get('files/%2F' + groupID + '%2F'+fileRelativeUrl);
         };
 
-        var list = function (groupID) {
-            return jsonService.get('files')//('group/' + groupID);
+        var list = function (path) {
+            return jsonService.get('files/'+path);
         };
-        var create = function (file) {
-            return jsonService.post("upload", file)
+        var create = function (folder) {
+            return jsonService.post("create/", folder)
         }
 
         return {
