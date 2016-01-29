@@ -6,7 +6,7 @@
         </ol>
         <div class="btn-toolbar" role="toolbar" id="toolbar">
             <div class="btn-group" role="group" aria-label="..."><a href="#" ref="tooltip" title="Back"><i class="fa fa-arrow-circle-left"></i></a></div>
-            <div class="btn-group" role="group" aria-label="..."><a href="#/upload/samplepath" ref="tooltip" title="Add Resource"><i class="fa fa-file"></i></a></div>
+            <div class="btn-group" role="group" aria-label="..."><a href="#/upload/{{idGroup}}" ref="tooltip" title="Add Resource"><i class="fa fa-file"></i></a></div>
             <div class="btn-group" role="group" aria-label="..."><a href="#/createFolder/" ref="tooltip" title="Create Folder"><i class="fa fa-folder-open"></i></a></div>
         </div>
     </div>
@@ -30,7 +30,7 @@
                             <td>{{element.uid}}</td>
                             <td><img alt="{{element.type}}" ng-src="img/{{element.type}}.png" class="thumb"/></td>
                             <td><a ng-click="showDetails(element.name)">{{element.name}}</a></td>
-                            <td>{{element.size}}</td>
+                            <td>{{element.size/1024/1024|number:2}} Mb</td>
                             <td>{{element.owner}}</td>
                             <td>{{element.ctime}}</td>
                         </tr>
@@ -51,7 +51,7 @@
                                 <p>UID: {{element.uid}}</p>
                                 <p>Name: {{element.name}}</p>
                                 <p>Type: {{element.type}}</p>
-                                <p>Size: {{element.size}}</p>
+                                <p>Size: {{element.size/1024/1024|number:2}} Mb</p>
                                 <p>Owner: {{element.owner}}</p>
                                 <p>Creation Time: {{element.ctime}}</p>
                             </div>

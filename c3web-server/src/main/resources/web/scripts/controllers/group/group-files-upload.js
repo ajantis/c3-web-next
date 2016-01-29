@@ -3,11 +3,11 @@
     angular.module('C3web.controllers')
 
 
-        .controller('fileUploadController', ['$scope', 'FileUploader', function($scope, FileUploader) {
+        .controller('fileUploadController', ['$scope', '$routeParams', 'FileUploader', function($scope, $routeParams, FileUploader) {
             var uploader = $scope.uploader = new FileUploader({
                 url: '/api/file'
             });
-
+            var currentPath = $routeParams.path.toString();
             // FILTERS
 
             uploader.filters.push({
@@ -30,10 +30,11 @@
             };
             uploader.onBeforeUploadItem = function(item) {
                 console.info('onBeforeUploadItem', item);
+                item.formData.push({url: currentPath+"/"+item.file.name});
                 item.formData.push({fileName: item.file.name});
                 item.formData.push({fileSize: item.file.size});
-                item.formData.push({fileTags: item.file.name});
-                item.formData.push({fileType: "Другое"});
+                item.formData.push({fileTags: "TAG1"});
+                item.formData.push({fileType: "Other"});
             };
             uploader.onProgressItem = function(fileItem, progress) {
                 console.info('onProgressItem', fileItem, progress);
