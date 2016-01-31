@@ -13,36 +13,35 @@
                 FilesService.list($scope.idGroup).then(function(result){
                     var elementArray = [];
                     for (var i = 0; i <  result.data.length; i++) {
-                        var file = result.data[i]
+                        var file = result.data[i];
                         var fileData = {};
-                        fileData.uid = i+1;
+                        fileData.uid = i + 1;
                         fileData.type = "txt";
-                        fileData.size=file.metadata.size
-                        fileData.name=file.metadata.title;
-                        fileData.owner = file.metadata.owner
-                        fileData.ctime = file.metadata.creationTime
-                        elementArray.push(fileData)
+                        fileData.size = file.metadata.size;
+                        fileData.name = file.metadata.title;
+                        fileData.owner = file.metadata.owner;
+                        fileData.ctime = file.metadata.creationTime;
+                        elementArray.push(fileData);
                     }
                     $scope.elements = elementArray;
-                })
+                });
             };
 
-         $scope.detailInfo = false;
+            $scope.detailInfo = false;
 
-         $scope.load();
+            $scope.load();
 
-         $scope.showDetails = function(name) {1
-         	  for (var i = 0; i < $scope.elements.length; i++) {
-                 if (name === $scope.elements[i].name) {
-                     $scope.element = $scope.elements[i];
-                     break;
-                 }
-             }
-             $scope.detailInfo = true;
-         }
+            $scope.showDetails = function (name) {
+                for (var i = 0; i < $scope.elements.length; i++) {
+                    if (name === $scope.elements[i].name) {
+                        $scope.element = $scope.elements[i];
+                    }
+                }
+                $scope.detailInfo = true;
+            };
 
             $scope.closeDetails = function() {
                 $scope.detailInfo = false;
-        }
+            };
      }]);
-})(angular)
+})(angular);

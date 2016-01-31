@@ -1,8 +1,6 @@
 (function(angular){
     'use strict';
     angular.module('C3web.controllers')
-
-
         .controller('fileUploadController', ['$scope', '$routeParams', 'FileUploader', function($scope, $routeParams, FileUploader) {
             var uploader = $scope.uploader = new FileUploader({
                 url: '/api/file'
@@ -60,4 +58,4 @@
 
             console.info('uploader', uploader);
         }]);
-})(angular)
+})(angular);

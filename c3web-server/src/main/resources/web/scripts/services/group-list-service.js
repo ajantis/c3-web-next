@@ -1,8 +1,7 @@
-(function () {
+(function (angular, undefined) {
     'use strict';
 
-    angular.module('C3web.services')
-    .factory('GroupListService', ['JsonService', function (jsonService) {
+    var service = function (jsonService) {
 
         var list = function () {
             return jsonService.get('groups');
@@ -16,5 +15,10 @@
             list: list,
             get: get
         };
-    }]);
-})();
+    };
+
+    service.$inject = ['JsonService'];
+
+
+    angular.module('C3web.services').factory('GroupListService', service);
+})(angular);

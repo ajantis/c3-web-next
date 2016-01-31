@@ -1,16 +1,14 @@
-(function () {
+(function (angular, undefined) {
     'use strict';
 
-    angular.module('C3web.controllers')
-.factory("Data", ['$http', '$location','toastr',
-    function ($http, $location, toaster) {
+    var factory = function ($http, $location, toaster) {
 
         var serviceBase = 'api/';
 
         var obj = {};
         obj.toast = function (data) {
             toaster.pop(data.status, "", data.message, 10000, 'trustedHtml');
-        }
+        };
         obj.get = function (q) {
             return $http.get(serviceBase + q).then(function (results) {
                 return results.data;
@@ -32,5 +30,10 @@
             });
         };
         return obj;
-}]);
-})();
+    };
+
+    factory.$inject = ['$http', '$location','toastr'];
+
+    angular.module('C3web.controllers')
+        .factory('Data', factory);
+})(angular);

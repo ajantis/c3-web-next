@@ -1,4 +1,4 @@
-﻿(function(angular){
+﻿(function (angular, undefined){
     'use strict';
     angular.module('C3web.controllers')
         .controller('CollectCtrl',[ '$scope',function ($scope) {
@@ -32,6 +32,6 @@
                 {caption: "Experiment reproducibility"},
                 {caption: "Experiment capability Crisis"}
 
-            ]
+            ];
         }]);
-})(angular)
+})(angular);

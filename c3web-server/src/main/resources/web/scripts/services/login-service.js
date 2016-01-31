@@ -1,8 +1,7 @@
-(function () {
+(function (angular, undefined) {
     'use strict';
 
-    angular.module('C3web.services')
-    .factory('LoginService', ['JsonService', function (jsonService) {
+    var loginService = function (jsonService) {
 
         var auth = function (user) {
             return jsonService.post('auth', user);
@@ -14,5 +13,9 @@
             auth: auth,
             list:list
         };
-    }]);
-})();
+    };
+
+    loginService.$inject = ['JsonService'];
+
+    angular.module('C3web.services').factory('LoginService', loginService);
+})(angular);

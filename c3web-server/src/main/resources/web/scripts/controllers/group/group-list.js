@@ -6,8 +6,8 @@
          $scope.load = function(){
             GroupListService.list().then(function(result){
                 $scope.groups = result.data;
-            })
+            });
          };
          $scope.load();
      }]);
-})(angular)
+})(angular);

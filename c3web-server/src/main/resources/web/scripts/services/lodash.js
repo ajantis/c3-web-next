@@ -4,4 +4,4 @@
     };
 
     angular.module('C3web.services').factory('_', factory);
-})(_)
+})(_);

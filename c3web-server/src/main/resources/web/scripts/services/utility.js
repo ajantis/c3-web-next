@@ -10,4 +10,4 @@
     angular.module('C3web.services')
         .factory('utility', service);
 
-})(angular)
+})(angular);

@@ -1,7 +1,7 @@
 (function(angular){
     'use strict';
     angular.module('C3web.controllers')
-        .controller('group.groupController',['$scope', '$routeParams', 'GroupListService',function($scope, $routeParams, GroupListService) {
+        .controller('group.groupController',['$scope', '$routeParams', 'GroupListService', function($scope, $routeParams, GroupListService) {
          $scope.group = {};
          var idGroup = $routeParams.id;
 
@@ -9,7 +9,7 @@
             GroupListService.get(idGroup).then(function(result){
                 $scope.group = result.data;
                 $scope.selectedPage = $scope.pages[0];
-            })
+            });
          };
         $scope.titles = [{ title: 'Grp' },
                          { title: 'Role_Profile_Edit_title' }];
@@ -28,4 +28,4 @@
          $scope.selectedPage = $scope.pages[index];
         };
      }]);
-})(angular)
+})(angular);
