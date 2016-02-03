@@ -14,5 +14,16 @@
       "description": "Description of Group 1",
       "uid": "TBD"
     }
+  ],
+  "files": [
+    {
+      "id": 1,
+      "uid": 1,
+      "type": "txt",
+      "size": 12,
+      "name": "new File",
+      "owner": "Owner",
+      "ctime": "12:01"
+    }
   ]
 }
