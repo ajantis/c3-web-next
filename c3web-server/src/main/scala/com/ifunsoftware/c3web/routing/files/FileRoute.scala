@@ -8,9 +8,12 @@ import com.ifunsoftware.c3web.models.FileEntryJson._
 import com.ifunsoftware.c3web.models.MetadataEntryJson._
 import com.ifunsoftware.c3web.service.{ FilesService }
 import org.slf4j.LoggerFactory
-import spray.http.StatusCodes
+import spray.http.{ MediaTypes, HttpHeaders, StatusCodes }
 import spray.httpx.SprayJsonSupport
+import spray.httpx.marshalling.BasicMarshallers
 import spray.routing.HttpService
+import spray.routing.directives.ChunkSizeMagnet
+import spray.httpx.SprayJsonSupport._
 
 /**
  * Created by alexander on 15.11.15.
@@ -40,41 +43,40 @@ trait FileRouteTrait extends HttpService with SprayJsonSupport {
 
   val log = LoggerFactory.getLogger(classOf[FileRouteTrait])
 
-  val fileRoute = {
-    get {
-      pathEnd {
-        complete(StatusCodes.NoContent)
-      } ~
-        path(Segment) { filePath =>
-          log.debug(s"Hitting Get File by Url:${filePath}")
-          val file = filesService.getFileByUrl(filePath.toString)
-          file match {
-            case None       => complete(StatusCodes.NoContent)
-            case Some(file) => complete(file)
-          }
-        }
+  val fileRoute = get {
+    pathEnd {
+      complete(StatusCodes.NoContent)
     } ~
-      (post & pathEnd) {
-        formFields("url", "file", "fileName", "fileSize", "fileTags", "fileType") { (url, fileContent, name, size, tags, fileType) =>
+      path(Segment) { filePath =>
+        log.debug(s"Hitting Get File by Url:${filePath}")
+        val file = filesService.getFileByUrl(filePath.toString)
+        file match {
+          case None       => complete(StatusCodes.NoContent)
+          case Some(file) => complete(file)
+        }
+      }
+  } ~
+    (post & pathEnd) {
+      formFields("url", "file", "fileName", "fileSize", "fileTags", "fileType", "contentType") {
+        (url, fileContent, name, size, tags, fileType, contentType) =>
           log.debug("posting to create a File")
 
           val metadata = new Metadata(name, size, "admin", tags, fileType, Calendar.getInstance().getTime().toString)
-          val file = new File(url, metadata, Option(fileContent.getBytes));
-
+          val file = new File(url, metadata, Option(fileContent.getBytes), contentType)
           val newFile = filesService.addFile(file)
+
           complete(newFile);
-        }
-      } ~
-      (put & path(Segment) & pathEnd) { fileId =>
-        entity(as[File]) { file =>
-          log.debug(s"updating a File with the url: ${fileId}")
-          val updatedFile = filesService.updateFile(file)
-          updatedFile match {
-            case true  => complete(StatusCodes.NoContent)
-            case false => complete(StatusCodes.NotFound)
-          }
+      }
+    } ~
+    (put & path(Segment) & pathEnd) { fileId =>
+      entity(as[File]) { file =>
+        log.debug(s"updating a File with the url: ${fileId}")
+        val updatedFile = filesService.updateFile(file)
+        updatedFile match {
+          case true  => complete(StatusCodes.NoContent)
+          case false => complete(StatusCodes.NotFound)
         }
       }
-  }
+    }
   private val filesService = FilesService
 }

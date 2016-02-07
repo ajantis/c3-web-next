@@ -2,7 +2,7 @@ package com.ifunsoftware.c3web.config
 
 import akka.actor.ActorSystem
 import com.ifunsoftware.c3web.routing._
-import com.ifunsoftware.c3web.routing.files.{ FilesRoute, FileRoute }
+import com.ifunsoftware.c3web.routing.files.{ FilesRoute, FileRoute, DownloadRoute }
 import com.ifunsoftware.c3web.routing.groups.{ GroupsRoute, GroupRoute }
 import com.ifunsoftware.c3web.routing.journal.JournalMessagesRoute
 
@@ -30,9 +30,12 @@ class ActorSystemBean {
   lazy val groupRoute = system.actorOf(GroupRoute.props, "group-route")
   lazy val fileRoute = system.actorOf(FileRoute.props, "file-route")
   lazy val filesRoute = system.actorOf(FilesRoute.props, "files-route")
+  lazy val downloadRoute = system.actorOf(DownloadRoute.props, "download-route")
+
   lazy val journalRoute = system.actorOf(JournalMessagesRoute.props, "journal-route")
   //root API route
-  lazy val apiRouterActor = system.actorOf(ApiRouterActor.props(authRoute, accountingRoute, groupsRoute, groupRoute, filesRoute, fileRoute, journalRoute), "api-router")
+  lazy val apiRouterActor = system.actorOf(ApiRouterActor.props(authRoute, accountingRoute, groupsRoute, groupRoute,
+    filesRoute, fileRoute, downloadRoute, journalRoute), "api-router")
   //System actor
   implicit val system = ActorSystem("c3web-server")
 }

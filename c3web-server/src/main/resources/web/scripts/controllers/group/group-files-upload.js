@@ -28,11 +28,12 @@
             };
             uploader.onBeforeUploadItem = function(item) {
                 console.info('onBeforeUploadItem', item);
-                item.formData.push({url: currentPath+"/"+item.file.name});
+                item.formData.push({url: "/"+currentPath+"/"+item.file.name});
                 item.formData.push({fileName: item.file.name});
                 item.formData.push({fileSize: item.file.size});
                 item.formData.push({fileTags: "TAG1"});
                 item.formData.push({fileType: "Other"});
+                item.formData.push({contentType: item.file.type });
             };
             uploader.onProgressItem = function(fileItem, progress) {
                 console.info('onProgressItem', fileItem, progress);

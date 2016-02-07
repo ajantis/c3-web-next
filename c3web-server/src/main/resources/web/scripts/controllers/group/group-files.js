@@ -17,11 +17,12 @@
                         var fileData = {};
                         fileData.uid = i + 1;
                         fileData.type = "txt";
-                        fileData.size = file.metadata.size;
+                        fileData.size = file.metadata.size
                         fileData.name = file.metadata.title;
-                        fileData.owner = file.metadata.owner;
-                        fileData.ctime = file.metadata.creationTime;
-                        elementArray.push(fileData);
+                        fileData.url = file.url;
+                        fileData.owner = file.metadata.owner
+                        fileData.ctime = file.metadata.creationTime
+                        elementArray.push(fileData)
                     }
                     $scope.elements = elementArray;
                 });
@@ -42,6 +43,12 @@
 
             $scope.closeDetails = function() {
                 $scope.detailInfo = false;
-            };
-     }]);
-})(angular);
+            }
+
+            $scope.download = function (url)
+            {
+               var getFileUrl = "/api/download/"+encodeURIComponent(url);
+                window.open(getFileUrl);
+            }
+        }]);
+})(angular)
