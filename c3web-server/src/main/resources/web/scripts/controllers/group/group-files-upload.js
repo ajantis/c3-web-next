@@ -31,7 +31,7 @@
                 item.formData.push({url: "/"+currentPath+"/"+item.file.name});
                 item.formData.push({fileName: item.file.name});
                 item.formData.push({fileSize: item.file.size});
-                item.formData.push({fileTags: "TAG1"});
+                item.formData.push({fileTags: ""});
                 item.formData.push({fileType: "Other"});
                 item.formData.push({contentType: item.file.type });
             };
@@ -43,6 +43,16 @@
             };
             uploader.onSuccessItem = function(fileItem, response, status, headers) {
                 console.info('onSuccessItem', fileItem, response, status, headers);
+
+                $.ajax({
+                    url: "/api/annotation/"+encodeURIComponent("/"+currentPath+"/"+fileItem.file.name),
+                    cache: false
+                }).done(function(response) {
+                    console.info('OnAnnotaitonDone', response);
+                    $scope.tags = response
+                    $('input').focus()
+                });
+
             };
             uploader.onErrorItem = function(fileItem, response, status, headers) {
                 console.info('onErrorItem', fileItem, response, status, headers);

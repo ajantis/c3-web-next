@@ -12,8 +12,9 @@ import spray.routing.HttpService
  */
 object ApiRouterActor {
   def props(authRoute: ActorRef, accRoute: ActorRef, groupsRoute: ActorRef, groupRoute: ActorRef,
-            filesRoute: ActorRef, fileRoute: ActorRef, downloadRoute: ActorRef, journalRoute: ActorRef): Props =
-    Props(new ApiRouterActor(authRoute, accRoute, groupsRoute, groupRoute, filesRoute, fileRoute, downloadRoute, journalRoute))
+            filesRoute: ActorRef, fileRoute: ActorRef, downloadRoute: ActorRef,
+            annotationRoute: ActorRef, journalRoute: ActorRef): Props =
+    Props(new ApiRouterActor(authRoute, accRoute, groupsRoute, groupRoute, filesRoute, fileRoute, downloadRoute, annotationRoute, journalRoute))
 }
 
 /**
@@ -21,7 +22,8 @@ object ApiRouterActor {
  * along to the matching spray routing actor (if there's a match)
  */
 class ApiRouterActor(authRoute: ActorRef, accRoute: ActorRef, groupsRoute: ActorRef, groupRoute: ActorRef,
-                     filesRoute: ActorRef, fileRoute: ActorRef, downloadRoute: ActorRef, journalRoute: ActorRef) extends Actor
+                     filesRoute: ActorRef, fileRoute: ActorRef, downloadRoute: ActorRef,
+                     annotationRoute: ActorRef, journalRoute: ActorRef) extends Actor
   with HttpService
   with ActorLogging {
 
@@ -37,7 +39,8 @@ class ApiRouterActor(authRoute: ActorRef, accRoute: ActorRef, groupsRoute: Actor
           pathPrefix("journal") { ctx => journalRoute ! ctx } ~
           pathPrefix("files") { ctx => filesRoute ! ctx } ~
           pathPrefix("file") { ctx => fileRoute ! ctx } ~
-          pathPrefix("download") { ctx => downloadRoute ! ctx }
+          pathPrefix("download") { ctx => downloadRoute ! ctx } ~
+          pathPrefix("annotation") { ctx => annotationRoute ! ctx }
       } ~
         {
           path("") {
