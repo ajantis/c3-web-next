@@ -1,5 +1,6 @@
 package com.ifunsoftware.c3web.routing.files
 import akka.actor.{ Actor, Props }
+import com.ifunsoftware.c3web.annotation.Annotator
 import com.ifunsoftware.c3web.models.Keyword
 import com.ifunsoftware.c3web.models.KeywordEntryJson._
 import com.ifunsoftware.c3web.service.{ FilesService }
@@ -37,9 +38,7 @@ trait AnnotationRouteTrait extends HttpService with SprayJsonSupport {
         if (!file.isDefined && !file.get.content.isDefined)
           complete(StatusCodes.NoContent)
         else {
-          val fileText = new String(file.get.content.get, "UTF-8");
-          val annotation = fileText.split("\\W+").groupBy(identity).toList.sortWith(_._2.size > _._2.size)
-            .map(_._1).filter(_.name.length > 5).take(5).map(k => new Keyword(k))
+          var annotation = Annotator.getKeyWords(file.get.content.get)
           complete(annotation);
         }
       }

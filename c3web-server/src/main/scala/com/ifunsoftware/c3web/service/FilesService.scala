@@ -22,6 +22,10 @@ object FilesService {
     fileMock find (_.url.equalsIgnoreCase(url))
   }
 
+  def getVocabulary(groupId: String): Option[File] = {
+    (fileMock find (_.url.contains(".cv")))
+  }
+
   def addFile(file: File): File = {
     fileMock += file
     file
