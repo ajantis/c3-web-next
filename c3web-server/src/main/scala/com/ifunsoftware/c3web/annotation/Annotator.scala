@@ -1,35 +1,33 @@
 package com.ifunsoftware.c3web.annotation
 
-import com.ifunsoftware.c3web.models.Keyword
+import com.ifunsoftware.c3web.annotation.indexator.LuceneSimpleIndexator
+import com.ifunsoftware.c3web.annotation.vocabulary.controlledVocabulary.ControlledVocabulary
+import com.ifunsoftware.c3web.models.{ File, Tag }
 import com.ifunsoftware.c3web.service.FilesService
+import org.apache.lucene.analysis.standard.StandardAnalyzer
+import org.apache.lucene.document.{ FieldType, Field, TextField, Document }
+import org.apache.lucene.index._
+import org.apache.lucene.search.{ DocIdSetIterator, IndexSearcher }
+import org.apache.lucene.store.{ RAMDirectory, Directory }
+import org.apache.lucene.util.BytesRef
 import org.slf4j.LoggerFactory
-
 import scala.collection.MapLike
 
 /**
  * Created by admin on 11.02.2016.
  */
 object Annotator {
-  def getKeyWords(content: Array[Byte]): List[Keyword] = {
-    import scala.collection.mutable.Map
+  def getKeyWords(content: Array[Byte]): List[Tag] = {
     val fileText = new String(content, "UTF-8");
-    val rawKeyWords = fileText.split("\\W+").groupBy(identity).toList.sortWith(_._2.size > _._2.size)
-      .map(_._1.toLowerCase.dropRight(1)).filter(_.length >= 5)
 
-    val groupVocabulary = new String(filesService.getVocabulary("").get.content.get, "UTF-8").split('\n').distinct;
+    val rawKeyWords = (new LuceneSimpleIndexator()).GetIndex(fileText)
 
-    var groupVocabularyMap = Map() ++ (groupVocabulary map (term => term -> 0.0) toMap)
+    val baseControlledVocabulary = new ControlledVocabulary(new String(filesService.getVocabulary("").get.content.get, "UTF-8"))
 
-    rawKeyWords.foreach(w =>
-      groupVocabularyMap.keys.foreach(k =>
-        if (k.toLowerCase.contains(w)) {
-          groupVocabularyMap(k) = groupVocabularyMap(k) + 1.0 / (k.split(' ').length)
-
-        }))
-
-    val filteredKeyWords = groupVocabularyMap.toList.sortBy(_._2).reverse.map(_._1).take(15);
-    val resultKeyWords = filteredKeyWords.map(k => new Keyword(k.toLowerCase))
-    return resultKeyWords;
+    val resultKeyWords = (new Annotation(rawKeyWords.map(k => new KeyWord(k, 0.0.toFloat)))).
+      applyFilter(new Filter(baseControlledVocabulary)).getTags();
+    return resultKeyWords.take(10);
   }
+
   private val filesService = FilesService
 }

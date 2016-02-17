@@ -1,8 +1,8 @@
 package com.ifunsoftware.c3web.routing.files
 import akka.actor.{ Actor, Props }
 import com.ifunsoftware.c3web.annotation.Annotator
-import com.ifunsoftware.c3web.models.Keyword
-import com.ifunsoftware.c3web.models.KeywordEntryJson._
+import com.ifunsoftware.c3web.models.Tag
+import com.ifunsoftware.c3web.models.TagEntryJson._
 import com.ifunsoftware.c3web.service.{ FilesService }
 import org.slf4j.LoggerFactory
 import spray.http.{ MediaTypes, HttpHeaders, StatusCodes }

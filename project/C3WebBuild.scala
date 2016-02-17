@@ -91,6 +91,9 @@ object Dependencies {
     Compile.sprayCan,
     Compile.logger,
     Compile.logback,
+    Compile.luceneCore,
+    Compile.luceneAnalyzers,
+    Compile.luceneStandartAnalyzers,
     Test.scalatest, Test.spraytestkit, Test.specs2)
 
   object Compile {
@@ -104,6 +107,9 @@ object Dependencies {
     val akkaActor = "com.typesafe.akka" %% "akka-actor" % akkaV
     val logger = "com.typesafe.akka" %% "akka-slf4j" % akkaV
     val logback = "ch.qos.logback" % "logback-classic" % "1.0.13"
+    val luceneCore = "org.apache.lucene" % "lucene-core" % "5.4.1"
+    var luceneAnalyzers = "org.apache.lucene" % "lucene-analyzers" % "3.6.2"
+    var luceneStandartAnalyzers ="org.apache.lucene" % "lucene-analyzers-common" % "5.4.1"
   }
 
   object Test {
