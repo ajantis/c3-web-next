@@ -10,5 +10,5 @@ class Annotation(keyWords: List[KeyWord]) {
       return new Annotation(filter.filterKeyWords(keyWords))
     }
 
-  def getTags(): List[Tag] = keyWords.map(k => new Tag(k.value))
+  def getTags(): List[Tag] = keyWords.map(k => new Tag(k.name))
 }

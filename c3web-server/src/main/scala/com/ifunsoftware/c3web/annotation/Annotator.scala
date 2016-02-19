@@ -24,9 +24,9 @@ object Annotator {
 
     val baseControlledVocabulary = new ControlledVocabulary(new String(filesService.getVocabulary("").get.content.get, "UTF-8"))
 
-    val resultKeyWords = (new Annotation(rawKeyWords.map(k => new KeyWord(k, 0.0.toFloat)))).
-      applyFilter(new Filter(baseControlledVocabulary)).getTags();
-    return resultKeyWords.take(10);
+    val resultKeyWords = (new Annotation(rawKeyWords))
+      .applyFilter(new Filter(baseControlledVocabulary)).getTags();
+    return resultKeyWords.take(20);
   }
 
   private val filesService = FilesService

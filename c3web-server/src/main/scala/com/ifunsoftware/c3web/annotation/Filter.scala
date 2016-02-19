@@ -7,8 +7,9 @@ import com.ifunsoftware.c3web.annotation.vocabulary.Vocabulary
  */
 class Filter(vocabulary: Vocabulary) {
   def filterKeyWords(terms: List[KeyWord]): List[KeyWord] = {
-    if (vocabulary.isInstanceOf[ControlledVocabulary])
+    if (vocabulary.isInstanceOf[ControlledVocabulary] &&
+      (vocabulary.asInstanceOf[ControlledVocabulary].IsSuitableForText(terms.map(t => t.name)))) {
       vocabulary.GetIntersection(terms)
-    else terms
+    } else terms
   }
 }

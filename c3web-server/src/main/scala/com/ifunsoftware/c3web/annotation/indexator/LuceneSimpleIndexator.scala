@@ -1,5 +1,6 @@
 package com.ifunsoftware.c3web.annotation.indexator
 
+import com.ifunsoftware.c3web.annotation.KeyWord
 import org.apache.lucene.analysis.standard.StandardAnalyzer
 import org.apache.lucene.document.{ Field, FieldType, Document }
 import org.apache.lucene.index._
@@ -10,8 +11,8 @@ import org.apache.lucene.store.RAMDirectory
  */
 class LuceneSimpleIndexator extends Indexator {
   import scala.collection.mutable.Map
-  def GetIndex(fileText: String): List[String] = {
-    var result = Map[String, Int]()
+  def GetIndex(fileText: String): List[KeyWord] = {
+    var result = Map[String, Long]()
     var analyzer = new StandardAnalyzer();
     var index = new RAMDirectory();
     var config = new IndexWriterConfig(analyzer);
@@ -29,7 +30,6 @@ class LuceneSimpleIndexator extends Indexator {
     val reader = DirectoryReader.open(writer, false)
     var fields = MultiFields.getFields(reader);
     var liveDocs = MultiFields.getLiveDocs(reader);
-
     if (fields != null) {
       var terms = fields.terms("content");
       if (terms != null) {
@@ -37,13 +37,11 @@ class LuceneSimpleIndexator extends Indexator {
         var term = termsEnum.next
 
         while (term != null) {
-          var docsEnum = termsEnum.docs(liveDocs, null);
 
-          result += term.utf8ToString -> 0;
-          val frequency = docsEnum.freq
+          result += term.utf8ToString -> termsEnum.totalTermFreq();
           term = termsEnum.next
         }
-        return result.toList.sortBy(_._2).reverse.map(_._1).take(100);
+        return result.toList.filter(_._1.length > 1).sortBy(_._2).reverse.map(k => new KeyWord(k._1, k._2));
       }
     }
     return null
