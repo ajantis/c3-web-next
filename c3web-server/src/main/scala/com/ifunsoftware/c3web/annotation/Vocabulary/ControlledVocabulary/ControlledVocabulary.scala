@@ -19,28 +19,32 @@ class ControlledVocabulary(content: String) extends Vocabulary {
     import scala.collection.mutable.Map
 
     var vocabularyMap = Map() ++ (terms map (term => term -> 0.0) toMap)
+
     words.foreach(w =>
       vocabularyMap.keys.foreach(k =>
-        if (k.toLowerCase.contains(w.value)) {
+        if (k.toLowerCase.equals(w.name)) {
+          vocabularyMap(k) = (vocabularyMap(k) + 2.0)
+
+        } else if (k.toLowerCase.contains(w.name)) {
           vocabularyMap(k) = (vocabularyMap(k) + 1.0 / (k.split(' ').length))
 
         }))
 
-    vocabularyMap.toList.sortBy(_._2).reverse.map(k => new KeyWord(k._1, k._2.toFloat))
+    vocabularyMap.toList.distinct.sortBy(_._2).reverse.map(k => new KeyWord(k._1, k._2.toFloat))
   }
 
-  def IsSuitableForText(words: List[String]): Unit = {
-    return GetSuitability(words) < 0.25
+  def IsSuitableForText(words: List[String]): Boolean = {
+    return GetSuitability(words) / terms.length > 0.25
   }
 
   def GetSuitability(words: List[String]): Float = {
-
     var hits = 0;
-    terms.foreach(w =>
-      words.foreach(k =>
-        if (k.toLowerCase.contains(w)) {
-          hits += 1;
-        }))
+    terms.foreach(k =>
+      words.foreach(w =>
+        k.split(' ').foreach(k_part =>
+          if (k_part.toLowerCase.equals(w)) {
+            hits += 1;
+          })))
     return hits;
   }
 }
