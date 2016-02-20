@@ -11,8 +11,8 @@ import spray.httpx.SprayJsonSupport._
 import spray.http.MediaTypes._
 
 object FileEntryJson extends DefaultJsonProtocol {
-  implicit val fileResponseFormat = jsonFormat4(File.apply)
+  implicit val fileResponseFormat = jsonFormat5(File.apply)
 }
 
-case class File(url: String, metadata: Metadata, content: Option[Array[Byte]], contentType: String) {
+case class File(url: String, metadata: Metadata, content: Option[Array[Byte]], contentType: String, isFolder: Boolean) {
 }

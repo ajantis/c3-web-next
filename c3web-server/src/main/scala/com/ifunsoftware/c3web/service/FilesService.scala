@@ -14,15 +14,15 @@ object FilesService {
 
   import FileData.fileMock
 
-  def getFiles(groupId: String): List[File] = {
-    (fileMock filter (_.url.contains(groupId))).toList
+  def getFiles(path: String): List[File] = {
+    (fileMock filter (f => (f.url.split('/').dropRight(1).mkString("/")).equalsIgnoreCase(path))).toList
   }
 
   def getFileByUrl(url: String): Option[File] = {
     fileMock find (_.url.equalsIgnoreCase(url))
   }
 
-  def getVocabulary(groupId: String): Option[File] = {
+  def getVocabulary(path: String): Option[File] = {
     (fileMock find (_.url.contains(".cv")))
   }
 
