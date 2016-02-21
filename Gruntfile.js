@@ -35,12 +35,10 @@ module.exports = function(grunt) {
 		    all: {
 		      'pre-commit': 'git-pre-commit'
 		    }
-		},
+		}
 	});
 
-	grunt.loadNpmTasks('grunt-contrib-jshint');
-	grunt.loadNpmTasks("grunt-jsbeautifier");
-	grunt.loadNpmTasks('grunt-githooks');
+	require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 
     // task setup 
     grunt.registerTask('default', []);
