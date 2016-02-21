@@ -1,11 +1,11 @@
 (function(angular){
     'use strict';
     angular.module('C3web.controllers')
-        .controller('fileUploadController', ['$scope', '$routeParams', 'FileUploader', function($scope, $routeParams, FileUploader) {
+        .controller('fileUploadController', ['$scope', '$routeParams', 'FileUploader', '$sce', function($scope, $routeParams, FileUploader, $sce) {
             var uploader = $scope.uploader = new FileUploader({
                 url: '/api/file'
             });
-            var currentPath = $routeParams.path.toString();
+            var currentPath = $sce.trustAsResourceUrl($routeParams.path);
             // FILTERS
 
             uploader.filters.push({
@@ -34,6 +34,7 @@
                 item.formData.push({fileTags: ""});
                 item.formData.push({fileType: "Other"});
                 item.formData.push({contentType: item.file.type });
+                item.formData.push({isFolder: false});
             };
             uploader.onProgressItem = function(fileItem, progress) {
                 console.info('onProgressItem', fileItem, progress);
