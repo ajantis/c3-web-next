@@ -14,7 +14,7 @@ angular.module('C3web')
             templateUrl: 'views/group/group.html',
             controller: 'group.groupController'
         })
-        .when('/upload/:path', {
+        .when('/upload/:path*', {
             templateUrl: 'views/group/group-file-upload.html',
             controller: 'fileUploadController'
         })
