@@ -37,3 +37,4 @@ atlassian-ide-plugin.xml
 node_modules
 #bower components
 /c3web-server/src/main/resources/web/bower_components
+/c3web-server/src/main/resources/dist

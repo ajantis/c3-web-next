@@ -44,8 +44,8 @@ class ApiRouterActor(authRoute: ActorRef, accRoute: ActorRef, groupsRoute: Actor
       } ~
         {
           path("") {
-            getFromResource("web/index.html")
-          } ~ getFromResourceDirectory("web")
+            getFromResource("dist/index.html")
+          } ~ getFromResourceDirectory("dist")
         }
     }
   }
