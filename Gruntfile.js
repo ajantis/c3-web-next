@@ -137,6 +137,25 @@ module.exports = function(grunt) {
 		  	}
 		},
 
+		concat: {
+			prod: {
+				files : {
+					'<%= globalConfig.dist %>/config.min.js': 
+						['<%= globalConfig.dist %>/temp/config/**/*.js'],
+					'<%= globalConfig.dist %>/services.min.js': 
+						['<%= globalConfig.dist %>/temp/services/**/*.js'],
+					'<%= globalConfig.dist %>/controllers.min.js': 
+						['<%= globalConfig.dist %>/temp/controllers/**/*.js'],
+					'<%= globalConfig.dist %>/directives.min.js': 
+						['<%= globalConfig.dist %>/temp/directives/**/*.js']
+				}
+			}
+		},
+
+		clean: {
+
+		},
+
 		uglify: {
 			options: {
 
@@ -146,22 +165,22 @@ module.exports = function(grunt) {
 					expand: true,
 			        cwd: '<%= globalConfig.src %>',
 			        src: 'scripts/*.js',
-			        dest: 'dest/scripts/config.js'
+			        dest: '<%= globalConfig.dist%>/temp/config'
 				}, {
 					expand: true,
 			        cwd: '<%= globalConfig.src %>',
 			        src: 'scripts/controllers/**/*.js',
-			        dest: 'dest/scripts/controllers.js'
+			        dest: '<%= globalConfig.dist%>/temp/controllers'
 				}, {
 					expand: true,
 			        cwd: '<%= globalConfig.src %>',
 			        src: 'scripts/services/**/*.js',
-			        dest: 'dest/scripts/services.js'
+			        dest: '<%= globalConfig.dist%>/temp/services'
 				}, {
 					expand: true,
 			        cwd: '<%= globalConfig.src %>',
 			        src: 'scripts/directives/**/*.js',
-			        dest: 'dest/scripts/directives.js'
+			        dest: '<%= globalConfig.dist%>/temp/directives'
 				}]
 			}
 		},
