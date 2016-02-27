@@ -79,11 +79,7 @@ module.exports = function(grunt) {
 		        		app: {
 		        			cwd: '<%= globalConfig.dist %>',
 		        			files: 'styles/**/*.css'
-		        		},
-		        		vendor: {
-		        			files: '!*'
 		        		}
-
 		        	}
 		        }	
 			},
@@ -95,25 +91,22 @@ module.exports = function(grunt) {
 		        	scripts: {
 		        		app: {
 		        			cwd: '<%= globalConfig.dist %>',
-		        			files: 'scripts/**/*.js'
+		        			files: [
+		        				'scripts/services.min.js', 
+		        				'scripts/controllers.min.js',
+		        				'scripts/directives.min.js'
+		        			]
 		        		},
-		        		// setup: {
-		        		// 	cwd: '<%= globalConfig.dist %>',
-		        		// 	files: ['scripts/**/*.js']	
-		        		// }
-		        		vendor: {
-		        			files: 'vendor.js'
+		        		setup: {
+		        			cwd: '<%= globalConfig.dist %>',
+		        			files: 'scripts/config.min.js'	
 		        		}
 		        	},
 		        	styles: {
 		        		app: {
 		        			cwd: '<%= globalConfig.dist %>',
 		        			files: 'styles/**/*.css'
-		        		},
-		        		vendor: {
-		        			files: 'vendor.css'
 		        		}
-
 		        	}
 		        }
 	        }
@@ -133,62 +126,77 @@ module.exports = function(grunt) {
 		    	]
 		  	},
 		  	prod: {
-
+		  		files: [{ 
+		    			expand: true, 
+		    			src: [
+		    				'bower_components/**/*',
+		    				'index.html',
+		    				'views/**/*'
+		    			], 
+		    			cwd: '<%= globalConfig.src %>',
+		    			dest: '<%= globalConfig.dist %>'
+		    		}
+		    	]	
 		  	}
 		},
 
 		concat: {
 			prod: {
 				files : {
-					'<%= globalConfig.dist %>/config.min.js': 
-						['<%= globalConfig.dist %>/temp/config/**/*.js'],
-					'<%= globalConfig.dist %>/services.min.js': 
-						['<%= globalConfig.dist %>/temp/services/**/*.js'],
-					'<%= globalConfig.dist %>/controllers.min.js': 
-						['<%= globalConfig.dist %>/temp/controllers/**/*.js'],
-					'<%= globalConfig.dist %>/directives.min.js': 
-						['<%= globalConfig.dist %>/temp/directives/**/*.js']
+					'<%= globalConfig.dist %>/scripts/config.min.js': [
+							'<%= globalConfig.dist %>/temp/scripts/setup.js',
+							'<%= globalConfig.dist %>/temp/scripts/app.js'
+						],
+					'<%= globalConfig.dist %>/scripts/services.min.js': 
+						['<%= globalConfig.dist %>/temp/scripts/services/**/*.js'],
+					'<%= globalConfig.dist %>/scripts/controllers.min.js': 
+						['<%= globalConfig.dist %>/temp/scripts/controllers/**/*.js'],
+					'<%= globalConfig.dist %>/scripts/directives.min.js': 
+						['<%= globalConfig.dist %>/temp/scripts/directives/**/*.js']
 				}
 			}
 		},
 
-		clean: {
+		cssmin: {
+			prod: {
+				files: [{
+					expand: true,
+					cwd: '<%= globalConfig.src %>',
+					src: 'styles/**/*.css',
+					dest: '<%= globalConfig.dist %>'
+				}]
+			}
+		},
 
+		clean: {
+			prod: ['<%= globalConfig.dist %>/temp'],
+			all: ['<%= globalConfig.dist %>']
 		},
 
 		uglify: {
-			options: {
-
-			},
 			prod: {
 				files: [{
 					expand: true,
 			        cwd: '<%= globalConfig.src %>',
 			        src: 'scripts/*.js',
-			        dest: '<%= globalConfig.dist%>/temp/config'
+			        dest: '<%= globalConfig.dist%>/temp'
 				}, {
 					expand: true,
 			        cwd: '<%= globalConfig.src %>',
 			        src: 'scripts/controllers/**/*.js',
-			        dest: '<%= globalConfig.dist%>/temp/controllers'
+			        dest: '<%= globalConfig.dist%>/temp'
 				}, {
 					expand: true,
 			        cwd: '<%= globalConfig.src %>',
 			        src: 'scripts/services/**/*.js',
-			        dest: '<%= globalConfig.dist%>/temp/services'
+			        dest: '<%= globalConfig.dist%>/temp'
 				}, {
 					expand: true,
 			        cwd: '<%= globalConfig.src %>',
 			        src: 'scripts/directives/**/*.js',
-			        dest: '<%= globalConfig.dist%>/temp/directives'
+			        dest: '<%= globalConfig.dist%>/temp'
 				}]
 			}
-		},
-
-		githooks: {
-		    all: {
-		    //  'pre-commit': 'git-pre-commit'
-		    }
 		}
 	});
 
@@ -205,9 +213,14 @@ module.exports = function(grunt) {
     		]);
     	} else if (arg === 'prod') {
     		grunt.task.run([
-    			//'usemin',
-    			//'uglify',
-    			//'htmlbuild:prod'
+    			'clean:all',
+    			'copy:prod',
+    			'cssmin:prod',
+    			'uglify:prod',
+    			'concat:prod',
+    			'clean:prod',
+    			'wiredep:dev', // use usemin instead
+    			'htmlbuild:prod'
     		]);
     	} else {
     		grunt.log.error('Argument ' + arg + ' is not defined');
