@@ -36,5 +36,8 @@
     "components-font-awesome": "~4.4",
     "lodash": "~3.10.1",
     "ng-tags-input": "^3.0.0"
+  },
+  "resolutions": {
+    "angular": "1.5.0"
   }
 }

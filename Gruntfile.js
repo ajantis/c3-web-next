@@ -61,7 +61,15 @@ module.exports = function(grunt) {
 		        	scripts: {
 		        		app: {
 		        			cwd: '<%= globalConfig.dist %>',
-		        			files: 'scripts/**/*.js'
+		        			files: [
+		        				'scripts/services/**/*.js',
+		        				'scripts/directives/**/*.js',
+		        				'scripts/controllers/**/*.js'
+		        			]
+		        		},
+		        		setup: {
+							cwd: '<%= globalConfig.dist %>',
+		        			files: ['scripts/setup.js', 'scripts/app.js']
 		        		},
 		        		vendor: {
 		        			files: '!*'
@@ -80,20 +88,35 @@ module.exports = function(grunt) {
 		        }	
 			},
 	        prod: {
+	        	src: '<%= globalConfig.dist %>/index.html',
+		        dest: '<%= globalConfig.dist %>',
+		        options: {
+		        	beautify: true,
+		        	scripts: {
+		        		app: {
+		        			cwd: '<%= globalConfig.dist %>',
+		        			files: 'scripts/**/*.js'
+		        		},
+		        		// setup: {
+		        		// 	cwd: '<%= globalConfig.dist %>',
+		        		// 	files: ['scripts/**/*.js']	
+		        		// }
+		        		vendor: {
+		        			files: 'vendor.js'
+		        		}
+		        	},
+		        	styles: {
+		        		app: {
+		        			cwd: '<%= globalConfig.dist %>',
+		        			files: 'styles/**/*.css'
+		        		},
+		        		vendor: {
+		        			files: 'vendor.css'
+		        		}
+
+		        	}
+		        }
 	        }
-	        // options: {
-	        //     scripts: {
-	        //         libs: 'libs/*.js',
-	        //         app: 'app/*.js'
-	        //     },
-	        //     styles: {
-	        //         libs: [ 
-	        //             'css/lib1.css',
-	        //             'css/lib2.css'
-	        //         ],
-	        //         app: 'css/app.css'
-	        //     }
-	        // }
     	},
 
 		copy: {
@@ -112,6 +135,35 @@ module.exports = function(grunt) {
 		  	prod: {
 
 		  	}
+		},
+
+		uglify: {
+			options: {
+
+			},
+			prod: {
+				files: [{
+					expand: true,
+			        cwd: '<%= globalConfig.src %>',
+			        src: 'scripts/*.js',
+			        dest: 'dest/scripts/config.js'
+				}, {
+					expand: true,
+			        cwd: '<%= globalConfig.src %>',
+			        src: 'scripts/controllers/**/*.js',
+			        dest: 'dest/scripts/controllers.js'
+				}, {
+					expand: true,
+			        cwd: '<%= globalConfig.src %>',
+			        src: 'scripts/services/**/*.js',
+			        dest: 'dest/scripts/services.js'
+				}, {
+					expand: true,
+			        cwd: '<%= globalConfig.src %>',
+			        src: 'scripts/directives/**/*.js',
+			        dest: 'dest/scripts/directives.js'
+				}]
+			}
 		},
 
 		githooks: {
@@ -134,6 +186,9 @@ module.exports = function(grunt) {
     		]);
     	} else if (arg === 'prod') {
     		grunt.task.run([
+    			//'usemin',
+    			//'uglify',
+    			//'htmlbuild:prod'
     		]);
     	} else {
     		grunt.log.error('Argument ' + arg + ' is not defined');
