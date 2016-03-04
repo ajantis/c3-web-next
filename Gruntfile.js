@@ -1,9 +1,8 @@
 module.exports = function(grunt) {
 
 	var globalConfig = {
-		src: 'c3web-server/src/main/resources/web',
-		dist: 'c3web-server/src/main/resources/dist',
-		resources: 'c3web-server/src/main/resources'
+		src: 'app/web',
+		dist: 'c3web-server/src/main/resources/dist'
 	};
 
 	require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
