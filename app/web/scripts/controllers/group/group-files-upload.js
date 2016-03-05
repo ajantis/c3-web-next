@@ -1,4 +1,4 @@
-(function(angular){
+(function(angular) {
     'use strict';
     angular.module('C3web.controllers')
         .controller('fileUploadController', ['$scope', '$routeParams', 'FileUploader', '$sce', function($scope, $routeParams, FileUploader, $sce) {
@@ -10,14 +10,14 @@
 
             uploader.filters.push({
                 name: 'customFilter',
-                fn: function(item /*{File|FileLikeObject}*/, options) {
+                fn: function(item /*{File|FileLikeObject}*/ , options) {
                     return this.queue.length < 10;
                 }
             });
 
             // CALLBACKS
 
-            uploader.onWhenAddingFileFailed = function(item /*{File|FileLikeObject}*/, filter, options) {
+            uploader.onWhenAddingFileFailed = function(item /*{File|FileLikeObject}*/ , filter, options) {
                 console.info('onWhenAddingFileFailed', item, filter, options);
             };
             uploader.onAfterAddingFile = function(fileItem) {
@@ -28,13 +28,27 @@
             };
             uploader.onBeforeUploadItem = function(item) {
                 console.info('onBeforeUploadItem', item);
-                item.formData.push({url: "/"+currentPath+"/"+item.file.name});
-                item.formData.push({fileName: item.file.name});
-                item.formData.push({fileSize: item.file.size});
-                item.formData.push({fileTags: ""});
-                item.formData.push({fileType: "Other"});
-                item.formData.push({contentType: item.file.type });
-                item.formData.push({isFolder: false});
+                item.formData.push({
+                    url: "/" + currentPath + "/" + item.file.name
+                });
+                item.formData.push({
+                    fileName: item.file.name
+                });
+                item.formData.push({
+                    fileSize: item.file.size
+                });
+                item.formData.push({
+                    fileTags: ""
+                });
+                item.formData.push({
+                    fileType: "Other"
+                });
+                item.formData.push({
+                    contentType: item.file.type
+                });
+                item.formData.push({
+                    isFolder: false
+                });
             };
             uploader.onProgressItem = function(fileItem, progress) {
                 console.info('onProgressItem', fileItem, progress);
@@ -46,7 +60,7 @@
                 console.info('onSuccessItem', fileItem, response, status, headers);
 
                 $.ajax({
-                    url: "/api/annotation/"+encodeURIComponent("/"+currentPath+"/"+fileItem.file.name),
+                    url: "/api/annotation/" + encodeURIComponent("/" + currentPath + "/" + fileItem.file.name),
                     cache: false
                 }).done(function(response) {
                     console.info('OnAnnotaitonDone', response);

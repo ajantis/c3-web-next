@@ -1,17 +1,17 @@
-(function (angular, undefined) {
+(function(angular, undefined) {
     'use strict';
 
-    var loginService = function (jsonService) {
+    var loginService = function(jsonService) {
 
-        var auth = function (user) {
+        var auth = function(user) {
             return jsonService.post('auth', user);
         };
-        var list = function () {
+        var list = function() {
             return jsonService.get('user');
         };
         return {
             auth: auth,
-            list:list
+            list: list
         };
     };
 

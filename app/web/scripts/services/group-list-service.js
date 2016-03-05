@@ -1,13 +1,13 @@
-(function (angular, undefined) {
+(function(angular, undefined) {
     'use strict';
 
-    var service = function (jsonService) {
+    var service = function(jsonService) {
 
-        var list = function () {
+        var list = function() {
             return jsonService.get('groups');
         };
 
-        var get = function (groupID) {
+        var get = function(groupID) {
             return jsonService.get('group/' + groupID);
         };
 

@@ -1,27 +1,27 @@
-(function (angular, unedefined) {
+(function(angular, unedefined) {
     'use strict';
 
-    var jsonService = function ($http, $location, toastr) {
+    var jsonService = function($http, $location, toastr) {
 
         var serviceBase = 'api/';
 
         var setOptionToastr = function() {
-          /* toastr.options.timeOut = 1000;
-            toastr.options.extendedTimeOut = 100; //time out after visit
-            toastr.options.positionClass = "toast-top-right";
-            toastr.options.closeButton = true;
-            */
+            /* toastr.options.timeOut = 1000;
+              toastr.options.extendedTimeOut = 100; //time out after visit
+              toastr.options.positionClass = "toast-top-right";
+              toastr.options.closeButton = true;
+              */
         };
-        var getPromise = function (url, type, jsonData, onValidationError, jsonAction, noAlert) {
+        var getPromise = function(url, type, jsonData, onValidationError, jsonAction, noAlert) {
 
-            var onSuccessCallBack = function () {
+            var onSuccessCallBack = function() {
                 if (type != 'GET' && !noAlert) {
                     setOptionToastr();
                     toastr.success("success_message", "success_title");
                 }
             };
 
-            var onErrorCallBack = function (data, status) {
+            var onErrorCallBack = function(data, status) {
                 //ignore request cancellation
                 if (status === 0) {
                     return;
@@ -53,25 +53,24 @@
             }
             if (type == 'PUT') {
                 return $http.put(serviceBase + url, jsonData ? JSON.stringify(jsonData) : null).success(onSuccessCallBack).error(onErrorCallBack);
-            }
-            else {
+            } else {
                 return $http.post(serviceBase + url, jsonData ? jsonData : null).success(onSuccessCallBack).error(onErrorCallBack);
             }
         };
 
-        var get = function (url, global) {
+        var get = function(url, global) {
             return getPromise(url, 'GET');
         };
-        var remove = function (url, id) {
-            url = url+ '/'+ id;
+        var remove = function(url, id) {
+            url = url + '/' + id;
             return getPromise(url, 'DELETE');
         };
 
-        var post = function (url, jsonData, onValidationError, jsonAction, noAlert) {
+        var post = function(url, jsonData, onValidationError, jsonAction, noAlert) {
             return getPromise(url, 'POST', jsonData, onValidationError, jsonAction, noAlert);
         };
 
-        var put = function (url, jsonData, onValidationError, jsonAction, noAlert) {
+        var put = function(url, jsonData, onValidationError, jsonAction, noAlert) {
             return getPromise(url, 'PUT', jsonData, onValidationError, jsonAction, noAlert);
         };
         return {

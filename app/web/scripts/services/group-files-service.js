@@ -1,17 +1,17 @@
-(function (angular, undefined) {
+(function(angular, undefined) {
     'use strict';
 
-    var service = function (jsonService) {
+    var service = function(jsonService) {
 
-        var get = function (groupID,fileRelativeUrl) {
+        var get = function(groupID, fileRelativeUrl) {
             return jsonService.get('files/%2F' + groupID + '%2F' + fileRelativeUrl);
         };
 
-        var list = function (path) {
+        var list = function(path) {
             return jsonService.get('files/' + path);
         };
 
-        var create = function (folder) {
+        var create = function(folder) {
             return jsonService.post("create/", folder);
         };
 

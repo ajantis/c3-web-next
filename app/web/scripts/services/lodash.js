@@ -1,5 +1,5 @@
-(function (_, undefined) {
-    var factory = function () {
+(function(_, undefined) {
+    var factory = function() {
         return _;
     };
 

@@ -205,8 +205,8 @@ module.exports = function(grunt) {
     grunt.registerTask('build', 'Build project', function (arg){
     	if(arg === 'dev'){
     		grunt.task.run([
-    			// 'jshint:dev',
-    			// 'jsbeautifier:dev',
+    			'jshint:dev',
+    			'jsbeautifier:dev',
     			'clean:all',
     			'copy:dev',
     			'wiredep:dev',

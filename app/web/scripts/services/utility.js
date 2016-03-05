@@ -1,7 +1,7 @@
-(function (angular, undefined) {
-    var service = function () {
+(function(angular, undefined) {
+    var service = function() {
         return {
-            equalsIgnoreCase: function (s1, s2) {
+            equalsIgnoreCase: function(s1, s2) {
                 return (!s1 && !s2) || s1.toLowerCase() === s2.toLowerCase();
             }
         };
