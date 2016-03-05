@@ -50,8 +50,8 @@
                     cache: false
                 }).done(function(response) {
                     console.info('OnAnnotaitonDone', response);
-                    $scope.tags = response
-                    $('input').focus()
+                    $scope.tags = response;
+                    $('input').focus();
                 });
 
             };

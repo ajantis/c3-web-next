@@ -16,21 +16,21 @@ module.exports = function(grunt) {
 			dev: {        
 				src: [
 					'<%= globalConfig.src %>/scripts/**/*.js',
-					'<%= globalConfig.src %>/styles/**/*.css'
+					// '<%= globalConfig.src %>/styles/**/*.css'
 				]
 			}
 		},
 
 		jsbeautifier: {
 			dev: {
-				files: [
+				src: [
 					'<%= globalConfig.src %>/scripts/**/*.js',
 					'<%= globalConfig.src %>/styles/**/*.css',
 					'<%= globalConfig.src %>/scripts/**/*.html'
 				]
 			},
 			prod: {
-				files: [
+				src: [
 					'<%= globalConfig.src %>/scripts/**/*.js',
 					'<%= globalConfig.src %>/styles/**/*.css',
 					'<%= globalConfig.src %>/scripts/**/*.html'
@@ -205,7 +205,8 @@ module.exports = function(grunt) {
     grunt.registerTask('build', 'Build project', function (arg){
     	if(arg === 'dev'){
     		grunt.task.run([
-    			//'jsbeautifier:dev'
+    			// 'jshint:dev',
+    			// 'jsbeautifier:dev',
     			'clean:all',
     			'copy:dev',
     			'wiredep:dev',
