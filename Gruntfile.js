@@ -206,6 +206,7 @@ module.exports = function(grunt) {
     	if(arg === 'dev'){
     		grunt.task.run([
     			//'jsbeautifier:dev'
+    			'clean:all',
     			'copy:dev',
     			'wiredep:dev',
     			'htmlbuild:dev'
