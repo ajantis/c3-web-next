@@ -10,6 +10,7 @@
         'ngAnimate',
         'toastr',
         'ngTagsInput',
+        'angularFileUpload',
         // C3web
         'C3web.components',
         'C3web.controllers',
